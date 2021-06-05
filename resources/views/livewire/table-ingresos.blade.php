@@ -1,9 +1,9 @@
 <div class="md:flex ">
 
     <div class=" md:w-auto min-w-full md:min-w-0 ">
-        <label >{{ $id_reporte }}</label>
+        <label > Ingreso Generado Total {{ $sum_importe }}</label>
 
-            @livewire('formulario', ['id_reporte' => $id_reporte])
+            @livewire('formulario', ['id_reporte' => $id_reporte,'can_submit' => $can_submit])
     </div>
 
 
@@ -103,7 +103,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($ingresos as $ingreso)
-                                    <tr>
+                                    <tr id="{{ $ingreso->id }}" style ="display: " >
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $ingreso->id }}</div>
                                         </td>
@@ -126,8 +126,8 @@
 
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <center>
-                                                <button wire:click="editIngreso({{ $ingreso->id }})"
-
+                                                <button {{-- onclick="oculta({{ $ingreso->id }})" --}}
+                                                    wire:click="editIngreso({{ $ingreso->id }})"
                                                     class="text-yellow-400 hover:text-yellow-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                         viewBox="0 0 20 20" fill="currentColor">
@@ -139,7 +139,8 @@
                                                     </svg>
                                                 </button>
                                                 <button
-                                                wire:loading.attr="disabled" wire:target="editIngreso({{ $ingreso->id }})"
+                                                {{-- wire:loading.attr="disabled" wire:target="editIngreso({{ $ingreso->id }})" --}}
+                                               {{ $can_submit ? '' : 'disabled' }}
                                                 onclick="borrarIngreso({{ $ingreso->id }})"
                                                     class="text-red-400 hover:text-red-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
@@ -205,5 +206,9 @@
                     'success'
                 )
             });
+            function oculta(ingreso) {
+                document.getElementById(ingreso).style.display  = 'none';
+                console.log(ingreso);
+            }
         </script>
         @endpush

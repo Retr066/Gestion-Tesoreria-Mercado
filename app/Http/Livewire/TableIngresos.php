@@ -7,6 +7,7 @@ use App\Models\ListReportes;
 use Livewire\Component;
 use Auth;
 
+
 use Illuminate\Support\Facades\DB;
 class TableIngresos extends Component
 {
@@ -18,6 +19,8 @@ class TableIngresos extends Component
     public $order = null;
     public $icon = '-circle';
     public $id_reporte ;
+    public $can_submit = true;
+    public $sum_importe = '';
 
     protected $queryString = [
         'search'=> ['except'=> ''],
@@ -32,6 +35,8 @@ class TableIngresos extends Component
         'reporteList' => 'render',
         'showIngresos' => 'render',
         'IngresosList' => 'render',
+        'cambio',
+
 
     ];
 
@@ -47,7 +52,7 @@ class TableIngresos extends Component
 
                         ->get(); */
 
-
+                        $this->suma();
         $ingresos = Ingresos::where('id_ingreso_reportes', $this->id_reporte)
                             ->where(function ($query){
                                 $query ->orWhere('id','LIKE','%'. $this->search.'%')
@@ -76,6 +81,11 @@ class TableIngresos extends Component
         $this->id_reporte_especifico = ListReportes::find($id_repor);
 
     } */
+
+    public function suma(){
+        $test = DB::table('ingresos')->sum('ingreso_importe');
+        $this->sum_importe = $test;
+    }
     public function clear(){
         $this->reset();
     }
@@ -84,9 +94,12 @@ class TableIngresos extends Component
     {
         $this->resetPage();
     }
+
+
     public function mount(){
         $this->icon = $this->iconDirection($this->order);
-
+       $this->can_submit = true;
+       $this->suma();
     }
 
     public function sortable($camp)
@@ -125,10 +138,18 @@ class TableIngresos extends Component
         $ingreso->delete();
           $this->emit('deleteIngreso', $ingreso);
     }
-    public function editIngreso(Ingresos $ingreso){
+    public function editIngreso(Ingresos $ingreso ){
 
-
-
+        $this->cambio();
         $this->emit('editIngreso', $ingreso);
+    }
+
+    public function cambio(){
+        if($this->can_submit == true){
+            $this->can_submit = false;
+        }else{
+            $this->can_submit = true;
+        }
+
     }
 }

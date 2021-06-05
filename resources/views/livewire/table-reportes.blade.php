@@ -139,6 +139,7 @@
                                                 <a
                                                     class="text-green-600 mb-5 hover:text-green-900"
                                                     href="{{ route('ingresos', $reporte->id ) }}"
+
                                                     >
                                                     Ingresos
                                                 </a>

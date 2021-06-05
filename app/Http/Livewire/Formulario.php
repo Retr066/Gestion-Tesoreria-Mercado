@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Livewire;
-
+use App\Models\TipoIngreso;
 use Livewire\Component;
 use App\Models\Ingresos;
-use App\Models\TipoIngreso;
+
 class Formulario extends Component
 {
 
@@ -16,16 +16,49 @@ class Formulario extends Component
     public $ingreso_importe = '';
     public $id_reporte;
     public $ingreso_id = null;
-    public $show ;
+    public $open = 'hidden';
+    public $open2 = '';
+    public $can_submit;
 
     protected $listeners = [
         'editIngreso'  => 'kk',
     ];
 
+  /*   public function gaa(){
+    $tipos = TipoIngreso::pluck('Descripcion');
+        $tipos = $tipos->join(',');
+        return $tipos;
+    } */
+
+    protected function rules()
+    {
+        $tipos = TipoIngreso::pluck('Descripcion');
+        $tipos = $tipos->join(',');
+        return [
+            'ingreso_fecha' => 'required|date',
+        'ingreso_codigo' => 'required|string|min:3|max:15',
+        'ingreso_descripcion' => 'required|string|min:3|max:100',
+        'tipo_importe' => "required|in:{$tipos}",
+        'ingreso_importe' => 'required|numeric|min:0|max:1000000',
+        ];
+    }
+
+
+    protected $messages = [
+        'ingreso_importe.max' => 'El campo :attribute no debe ser mayor a 1000000 de soles.',
+
+    ];
+
+    protected $validationAttributes = [
+        'ingreso_fecha' => 'fecha',
+        'ingreso_codigo' => 'codigo',
+        'ingreso_descripcion' => 'Descripcion',
+        'tipo_importe' => 'Tipo',
+        'ingreso_importe' => 'Importe',
+    ];
+
     public function render()
     {
-
-
 
         $tipos = TipoIngreso::all();
         $tipos = $tipos->sortBy('Descripcion');
@@ -34,8 +67,17 @@ class Formulario extends Component
         ]);
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
 
     public function save(){
+
+        $this->validate();
+
+
         Ingresos::create([
             'id_ingreso_reportes' => $this->id_reporte,
             'ingreso_fecha' => $this->ingreso_fecha,
@@ -46,15 +88,15 @@ class Formulario extends Component
 
         ]);
         $this->reset(['ingreso_fecha','ingreso_codigo','ingreso_descripcion','tipo_importe','ingreso_importe']);
+        $this->resetErrorBag();
+        $this->resetValidation();
         $this->emit('reporteList');
     }
     public function mount(){
-        $this->show = 'false';
+        $this->open;
     }
 
-    public function hydrate(){
-        $this->show = 'false';
-    }
+
     public function kk(Ingresos $ingreso_id){
         /* $ingreso = Ingresos::findOrFail($ingreso_id); */
         $this->ingreso_id = $ingreso_id->id;
@@ -64,11 +106,12 @@ class Formulario extends Component
         $this->ingreso_descripcion = $ingreso_id->ingreso_descripcion;
         $this->tipo_importe = $ingreso_id->tipo_importe;
         $this->ingreso_importe = $ingreso_id->ingreso_importe;
-
+        $this->open = '';
+        $this->open2 = 'hidden';
     }
 
     public function update(){
-
+        $this->validate();
         $license = Ingresos::find($this->ingreso_id);
 
         $license->update([
@@ -79,10 +122,22 @@ class Formulario extends Component
             'tipo_importe'     => $this->tipo_importe,
             'ingreso_importe'     => $this->ingreso_importe,
         ]);
-            $this->hydrate();
-        $this->reset(['ingreso_fecha','ingreso_codigo','ingreso_descripcion','tipo_importe','ingreso_importe']);
-        $this->emit('IngresosList');
 
+        $this->reset(['ingreso_fecha','ingreso_codigo','ingreso_descripcion','tipo_importe','ingreso_importe']);
+        $this->resetErrorBag();
+        $this->resetValidation();
+        $this->open = 'hidden';
+        $this->open2 = '';
+        $this->cambio();
+        $this->emit('IngresosList',$this->can_submit);
+
+
+    }
+
+    public function cambio()
+    {
+        $this->can_submit = true;
+        $this->emit('cambio');
     }
 
 }
