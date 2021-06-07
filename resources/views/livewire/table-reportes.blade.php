@@ -4,7 +4,12 @@
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <div class="flex bg-white px-4 py-3  sm:px-6">
-
+                        <button wire:click="$emit('abrirModal')" class="form-input rounded-md shadow  px-3 py-1 mt-1 mr-6 block" >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-600 " fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd" />
+                             </svg>
+                        </button>
                         <input wire:model="search" class="form-input rounded-md shadow-sm mt-1 block w-full" type="text"
                             placeholder="Buscar...">
                         {{-- <div class="form-input rounded-md shadow-sm mt-1 ml-6 block ">
@@ -123,9 +128,20 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $reporte->estado }}</div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <center>
-                                                {{-- button wire:click="showModal({{ $user->id }})"
+                                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                                <a
+                                                    class="text-green-600 mb-5 hover:text-green-900"
+                                                    href="{{ route('ingresos', $reporte->id ) }}"
+                                                    >
+                                                    Ingresos
+                                                </a>
+                                                <a
+                                                    class="text-red-600 mb-5 hover:text-red-900"
+                                                    href="{{ route('egresos', $reporte->id) }}"
+                                                    >
+                                                    Egresos
+                                                </a>
+                                                <button {{-- wire:click="showModal({{ $user->id }}) --}}"
                                                     class="text-yellow-400 hover:text-yellow-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                         viewBox="0 0 20 20" fill="currentColor">
@@ -135,21 +151,7 @@
                                                             d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                             clip-rule="evenodd" />
                                                     </svg>
-                                                </button> --}}
-                                                <a
-                                                    class="text-green-600 mb-5 hover:text-green-900"
-                                                    href="{{ route('ingresos', $reporte->id ) }}"
-
-                                                    >
-                                                    Ingresos
-                                                </a>
-                                                <a
-
-                                                    class="text-red-600 mb-5 hover:text-red-900"
-
-                                                    >
-                                                    Egresos
-                                                </a>
+                                                </button>
                                                 <button onclick="borrarReporte({{ $reporte->id }})"
                                                     class="text-red-400 hover:text-red-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
@@ -159,8 +161,6 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
-                                            </center>
-
                                         </td>
                                     </tr>
 
@@ -186,6 +186,7 @@
                 </div>
             </div>
         </div>
+        <livewire:reporte-modal>
 </div>
 @push('scripts')
         <script>

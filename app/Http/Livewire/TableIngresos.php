@@ -14,7 +14,7 @@ class TableIngresos extends Component
     use WithPagination;
     public $search = '';
     public $perPage = '5';
-    public $user_role = '';
+
     public $camp = null;
     public $order = null;
     public $icon = '-circle';
@@ -27,7 +27,7 @@ class TableIngresos extends Component
         'camp' => ['except'=>null],
         'order' => ['except'=>null],
         'perPage' => ['except'=> '5'],
-        'user_role'=> ['except'=> ''],
+
     ];
 
     protected $listeners = [
@@ -35,7 +35,8 @@ class TableIngresos extends Component
         'reporteList' => 'render',
         'showIngresos' => 'render',
         'IngresosList' => 'render',
-        'cambio',
+        'cambio' => 'abrir',
+
 
 
     ];
@@ -44,15 +45,7 @@ class TableIngresos extends Component
     public function render()
     {
 
-        /* $id = ListReportes::where('id')->get(); */
-       /*  $id_reportes = ListReportes::find(2)->r_ingresos; */
-
-        /* $id_reportes = DB::table('ingresos')
-                        ->leftJoin('list_reportes','list_reportes.id','=','ingresos.id_ingreso_reportes')
-
-                        ->get(); */
-
-                        $this->suma();
+        $this->suma();
         $ingresos = Ingresos::where('id_ingreso_reportes', $this->id_reporte)
                             ->where(function ($query){
                                 $query ->orWhere('id','LIKE','%'. $this->search.'%')
@@ -77,13 +70,10 @@ class TableIngresos extends Component
         ])->layout('users.ingresos');
     }
 
-    /* public function showIngresos($id_repor){
-        $this->id_reporte_especifico = ListReportes::find($id_repor);
 
-    } */
 
     public function suma(){
-        $test = DB::table('ingresos')->sum('ingreso_importe');
+        $test = DB::table('ingresos')->where('id_ingreso_reportes', $this->id_reporte)->sum('ingreso_importe');
         $this->sum_importe = $test;
     }
     public function clear(){
@@ -96,7 +86,9 @@ class TableIngresos extends Component
     }
 
 
-    public function mount(){
+    public function mount(ListReportes $id){
+        $this->id_reporte = $id;
+        $this->id_reporte = $this->id_reporte['id'];
         $this->icon = $this->iconDirection($this->order);
        $this->can_submit = true;
        $this->suma();
@@ -135,7 +127,7 @@ class TableIngresos extends Component
 
     public function deleteIngreso(Ingresos $ingreso){
 
-        $ingreso->delete();
+         $ingreso->delete();
           $this->emit('deleteIngreso', $ingreso);
     }
     public function editIngreso(Ingresos $ingreso ){
@@ -147,9 +139,11 @@ class TableIngresos extends Component
     public function cambio(){
         if($this->can_submit == true){
             $this->can_submit = false;
-        }else{
-            $this->can_submit = true;
         }
-
+    }
+    public function abrir(){
+        if($this->can_submit == false){
+        $this->can_submit = true;
+        }
     }
 }

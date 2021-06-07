@@ -13,6 +13,8 @@ class Egresos extends Model
         'egreso_fecha',
         'egreso_codigo',
         'egreso_descripcion',
+        'tipo_importe_egreso',
         'egreso_importe',
+
     ];
 }

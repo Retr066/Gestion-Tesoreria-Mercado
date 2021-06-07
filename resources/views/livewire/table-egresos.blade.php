@@ -1,14 +1,14 @@
 <div class="md:flex ">
 
     <div class=" md:w-auto min-w-full md:min-w-0 ">
-        <label > Ingreso Generado Total {{ $sum_importe }}</label>
+        <label > Egreso Generado Total {{ $sum_importe }}</label>
 
-            @livewire('formulario', ['id_reporte' => $id_reporte,'can_submit' => $can_submit])
+            @livewire('formulario-egreso' ,['id_reporte_egreso' => $id_reporte_egreso,'can_submit' => $can_submit])
     </div>
 
 
 
-    <div class=" md:w-auto min-w-full md:min-w-0 md:ml-8">
+    <div class=" md:w-auto min-w-full md:min-w-0 ml-8 ">
     <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -17,16 +17,7 @@
 
                         <input wire:model="search" class="form-input rounded-md shadow-sm mt-1 block w-full" type="text"
                             placeholder="Buscar...">
-                       {{--  <div class="form-input rounded-md shadow-sm mt-1 ml-6 block ">
-                            <select wire:model="user_role" class="ouline-none text-gray-500 text-sm">
-                                <option value="">Seleccione</option>
-                                <option value="admin">SuperUsuario</option>
-                                <option value="jefe">Jefatura</option>
-                                <option value="trabajador">Trabajador(a)</option>
 
-
-                            </select>
-                        </div> --}}
                         <div class="form-input rounded-md shadow-sm mt-1 ml-6 block ">
                             <select wire:model="perPage" class="ouline-none text-gray-500 text-sm">
                                 <option value="5">5 por Pagina</option>
@@ -44,7 +35,7 @@
                             </button>
                         @endif
                     </div>
-                    @if ($ingresos->count())
+                    @if ($egresos->count())
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
@@ -58,40 +49,40 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Fecha
-                                        <button wire:click="sortable('ingreso_fecha')">
-                                            <span class="fa fa{{ $camp === 'ingreso_fecha' ? $icon : '-circle' }}"></span>
+                                        <button wire:click="sortable('egreso_fecha')">
+                                            <span class="fa fa{{ $camp === 'egreso_fecha' ? $icon : '-circle' }}"></span>
                                         </button>
                                     </th>
 
                                     <th scope="col"
-                                        class="px-6 py-3  text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Recibo
-                                        <button wire:click="sortable('ingreso_codigo')">
-                                            <span class="fa fa{{ $camp === 'ingreso_codigo' ? $icon : '-circle' }}"></span>
+                                        <button wire:click="sortable('egreso_codigo')">
+                                            <span class="fa fa{{ $camp === 'egreso_codigo' ? $icon : '-circle' }}"></span>
                                         </button>
 
                                     </th>
 
                                     <th scope="col"
-                                        class="px-6 py-3   text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Concepto
-                                        <button wire:click="sortable('ingreso_descripcion')">
-                                            <span class="fa fa{{ $camp === 'ingreso_descripcion' ? $icon : '-circle' }}"></span>
+                                        <button wire:click="sortable('egreso_descripcion')">
+                                            <span class="fa fa{{ $camp === 'egreso_descripcion' ? $icon : '-circle' }}"></span>
                                         </button>
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3  text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Tipo Importe
-                                        <button wire:click="sortable('tipo_importe')">
-                                            <span class="fa fa{{ $camp === 'tipo_importe' ? $icon : '-circle' }}"></span>
+                                        <button wire:click="sortable('tipo_importe_egreso')">
+                                            <span class="fa fa{{ $camp === 'tipo_importe_egreso' ? $icon : '-circle' }}"></span>
                                         </button>
                                     </th>
 
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Importe
-                                        <button wire:click="sortable('ingreso_importe')">
-                                            <span class="fa fa{{ $camp === 'ingreso_importe' ? $icon : '-circle' }}"></span>
+                                        <button wire:click="sortable('egreso_importe')">
+                                            <span class="fa fa{{ $camp === 'egreso_importe' ? $icon : '-circle' }}"></span>
                                         </button>
                                     </th>
 
@@ -102,32 +93,32 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($ingresos as $ingreso)
-                                    <tr  >
+                                @foreach ($egresos as $egreso)
+                                    <tr >
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $ingreso->id }}</div>
+                                            <div class="text-sm text-gray-900">{{ $egreso->id }}</div>
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($ingreso->ingreso_fecha)->format('d/m/Y')}}</div>
+                                            <div class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($egreso->egreso_fecha)->format('d/m/Y')}}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $ingreso->ingreso_codigo }}</div>
-                                        </td>
-                                        <td  style="max-width: 15rem;" class="px-6 py-4 whitespace-normal break-words">
-                                            <div class="text-sm text-gray-900">{{ $ingreso->ingreso_descripcion }}</div>
-                                        </td>
-                                        <td style="max-width: 10rem;" class="px-6 py-4   whitespace-normal break-words">
-                                            <div class="text-sm text-gray-900">{{ $ingreso->tipo_importe }}</div>
+                                            <div class="text-sm text-gray-900">{{ $egreso->egreso_codigo }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">S/.{{ $ingreso->ingreso_importe }}</div>
+                                            <div class="text-sm text-gray-900">{{ $egreso->egreso_descripcion }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">{{ $egreso->tipo_importe_egreso }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">S/.{{ $egreso->egreso_importe }}</div>
                                         </td>
 
-                                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-
-                                                <button {{-- onclick="oculta({{ $ingreso->id }})" --}}
-                                                    wire:click="editIngreso({{ $ingreso->id }})"
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <center>
+                                                <button
+                                                    wire:click="editEgreso({{ $egreso->id }})"
                                                     class="text-yellow-400 hover:text-yellow-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                         viewBox="0 0 20 20" fill="currentColor">
@@ -139,9 +130,9 @@
                                                     </svg>
                                                 </button>
                                                 <button
-                                                {{-- wire:loading.attr="disabled" wire:target="editIngreso({{ $ingreso->id }})" --}}
+
                                                {{ $can_submit ? '' : 'disabled' }}
-                                                onclick="borrarIngreso({{ $ingreso->id }})"
+                                                onclick="borrarEgreso({{ $egreso->id }},'{{ $egreso->egreso_codigo }}')"
                                                     class="text-red-400 hover:text-red-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                         viewBox="0 0 20 20" fill="currentColor">
@@ -150,7 +141,7 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
-
+                                            </center>
 
                                         </td>
                                     </tr>
@@ -160,9 +151,9 @@
                             </tbody>
                         </table>
                         <div class="bg-white px-4 py-3  border-t border-gray-200 sm:px-6">
-                            {{ $ingresos->links() }}
+                            {{ $egresos->links() }}
                         </div>
-                       @elseif (!$ingresos->count() && $search == '')
+                       @elseif (!$egresos->count() && $search == '')
                        <div class="bg-white px-4 py-3  border-t border-gray-200 text-gray-500 sm:px-6">
                             No hay Registro de Ingresos aun
                     </div>
@@ -183,10 +174,10 @@
 
 @push('scripts')
         <script>
-            function borrarIngreso(ingreso) {
+            function borrarEgreso(egreso,nombre) {
                 Swal.fire({
                     title: 'Estas Seguro?',
-                    text: "No habra Vuelta Atras!",
+                    text: `De eliminar el Egreso con numero de recibo: ${nombre} ?`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -194,15 +185,15 @@
                     confirmButtonText: 'Si, Borralo!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Livewire.emit('deleteIngresoList', ingreso)
+                        Livewire.emit('deleteEgresoList', egreso)
 
                     }
                 })
             }
-            Livewire.on('deleteIngreso', (ingreso) => {
+            Livewire.on('deleteEgreso', (egreso) => {
                 Swal.fire(
                     'Borrado!',
-                    `El Ingreso ${ingreso.id} se borro corrrectamente`,
+                    `El Ingreso con el codigo de recibo: ${egreso.egreso_codigo}, se borro corrrectamente`,
                     'success'
                 )
             });

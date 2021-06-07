@@ -19,6 +19,7 @@ class CreateEgresosTable extends Migration
             $table->date('egreso_fecha');
             $table->string('egreso_codigo');
             $table->string('egreso_descripcion');
+            $table->string('tipo_importe_egreso')->nullable();
             $table->double('egreso_importe', 15, 2);
             $table->timestamps();
 

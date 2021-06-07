@@ -28,6 +28,7 @@ class EgresosFactory extends Factory
             'egreso_fecha' => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
             'egreso_codigo' => $this->faker->numberBetween($min = 1000, $max = 9000),
             'egreso_descripcion' => $this->faker->sentence(),
+            'tipo_importe_egreso' => $this->faker->company(),
             'egreso_importe' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 5000),
         ];
     }

@@ -52,7 +52,7 @@
     @if ($open == 'hidden')
         <div class="flex flex-wrap -mx-3 mb-6">
              <div  class=" {{ $open2 }} w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <x-jet-button  wire:click.prevent="save()"  >Guardar</x-jet-secundary-button>
+            <x-jet-button  wire:click.prevent="save()" wire:loading.class="opacity-25" >Guardar</x-jet-secundary-button>
             </div>
           @endif
             @if ($open == '')

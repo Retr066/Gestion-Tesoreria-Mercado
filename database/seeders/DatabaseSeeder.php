@@ -31,17 +31,17 @@ class DatabaseSeeder extends Seeder
         $reporte2 = ListReportes::factory()->create([
             'usuario_id' =>  $user->id,
         ]);
-        ListReportes::factory()->count(50)->create();
-        Ingresos::factory()->count(50)->create([
+        ListReportes::factory()->count(5)->create();
+        Ingresos::factory()->count(5)->create([
             'id_ingreso_reportes' =>  $reporte->id,
         ]);
-        Egresos::factory()->count(50)->create([
+        Egresos::factory()->count(5)->create([
             'id_egreso_reportes' =>  $reporte->id,
         ]);
-        Ingresos::factory()->count(50)->create([
+        Ingresos::factory()->count(5)->create([
             'id_ingreso_reportes' =>  $reporte2->id,
         ]);
-        Egresos::factory()->count(50)->create([
+        Egresos::factory()->count(5)->create([
             'id_egreso_reportes' =>  $reporte2->id,
         ]);
         TipoIngreso::factory()->create([

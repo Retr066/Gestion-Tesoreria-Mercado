@@ -24,11 +24,7 @@ class Formulario extends Component
         'editIngreso'  => 'kk',
     ];
 
-  /*   public function gaa(){
-    $tipos = TipoIngreso::pluck('Descripcion');
-        $tipos = $tipos->join(',');
-        return $tipos;
-    } */
+
 
     protected function rules()
     {
@@ -36,7 +32,7 @@ class Formulario extends Component
         $tipos = $tipos->join(',');
         return [
             'ingreso_fecha' => 'required|date',
-        'ingreso_codigo' => 'required|string|min:3|max:15',
+        'ingreso_codigo' => 'required|string|min:2|max:15',
         'ingreso_descripcion' => 'required|string|min:3|max:100',
         'tipo_importe' => "required|in:{$tipos}",
         'ingreso_importe' => 'required|numeric|min:0|max:1000000',
@@ -50,8 +46,8 @@ class Formulario extends Component
     ];
 
     protected $validationAttributes = [
-        'ingreso_fecha' => 'fecha',
-        'ingreso_codigo' => 'codigo',
+        'ingreso_fecha' => 'Fecha',
+        'ingreso_codigo' => 'Recibo',
         'ingreso_descripcion' => 'Descripcion',
         'tipo_importe' => 'Tipo',
         'ingreso_importe' => 'Importe',
