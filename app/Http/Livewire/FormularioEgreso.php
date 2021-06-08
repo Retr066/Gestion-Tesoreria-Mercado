@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire;
 use App\Models\TipoIngreso;
+use App\Models\TipoEgreso;
 use Livewire\Component;
 use App\Models\Egresos;
+use Illuminate\Support\Facades\DB;
+use App\Models\ListReportes;
 class FormularioEgreso extends Component
 {
 
@@ -14,17 +17,18 @@ class FormularioEgreso extends Component
     public $egreso_importe = '';
     public $tipo_importe_egreso = '';
     public $id_reporte_egreso;
-
+    public $sum_importe;
     public $egreso_id = null;
     public $open = 'hidden';
     public $open2 = '';
-
+    public $estado = 'Proceso';
+    public $liquidez = '';
     protected $listeners = [
         'editEgreso'  => 'RecuperarDatos',
     ];
     protected function rules()
     {
-        $tipos = TipoIngreso::pluck('Descripcion');
+        $tipos = TipoEgreso::pluck('Descripcion');
         $tipos = $tipos->join(',');
         return [
             'egreso_fecha' => 'required|date',
@@ -51,7 +55,7 @@ class FormularioEgreso extends Component
 
     public function render()
     {
-        $tipos = TipoIngreso::all();
+        $tipos = TipoEgreso::all();
         $tipos = $tipos->sortBy('Descripcion');
 
         return view('livewire.formulario-egreso',[
@@ -82,6 +86,7 @@ class FormularioEgreso extends Component
             'egreso_importe' =>$this->egreso_importe,
 
         ]);
+        $this->suma($this->id_reporte_egreso);
         $this->reset(['egreso_fecha','egreso_codigo','egreso_descripcion','tipo_importe_egreso','egreso_importe']);
         $this->resetErrorBag();
         $this->resetValidation();
@@ -112,14 +117,14 @@ class FormularioEgreso extends Component
             'tipo_importe_egreso'     => $this->tipo_importe_egreso,
             'egreso_importe'     => $this->egreso_importe,
         ]);
-
+        $this->suma($this->id_reporte_egreso);
         $this->reset(['egreso_fecha','egreso_codigo','egreso_descripcion','tipo_importe_egreso','egreso_importe']);
         $this->resetErrorBag();
         $this->resetValidation();
         $this->open = 'hidden';
         $this->open2 = '';
         $this->ActiveButtonDelete();
-        $this->emit('updateEgreso',$this->can_submit);
+        $this->emit('updateEgreso');
     }
 
     public function ActiveButtonDelete()
@@ -127,4 +132,23 @@ class FormularioEgreso extends Component
 
         $this->emit('ActiveButtonDelete');
     }
+
+
+    public function suma($id_reporte){
+        $ingreso = DB::table('ingresos')->where('id_ingreso_reportes', $id_reporte)->sum('ingreso_importe');
+        $egreso = DB::table('egresos')->where('id_egreso_reportes', $id_reporte)->sum('egreso_importe');
+        $this->sum_importe = $egreso;
+        $this->liquidez = $ingreso - $egreso;
+        $license = ListReportes::find($id_reporte);
+        $license->update([
+                'id' => $id_reporte,
+                'egreso_importe_total' => $this->sum_importe,
+                'estado' => $this->estado,
+                'liquidez' => $this->liquidez,
+        ]);
+    }
+
+
+
+
 }

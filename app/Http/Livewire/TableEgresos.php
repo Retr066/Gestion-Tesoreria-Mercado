@@ -19,7 +19,8 @@ class TableEgresos extends Component
     public $icon = '-circle';
     public $can_submit = true;
     public $sum_importe;
-
+    public $estado = 'Proceso';
+    public $liquidez = '';
     protected $queryString = [
         'search'=> ['except'=> ''],
         'camp' => ['except'=>null],
@@ -75,6 +76,14 @@ class TableEgresos extends Component
         $this->sum_importe = $test;
     }
 
+    public function clear(){
+        $this->search = '';
+        $this->camp = null;
+        $this->order = null;
+        $this->perPage = 5;
+    }
+
+
     public function sortable($camp)
     {
         if($camp !== $this->camp){
@@ -114,6 +123,7 @@ class TableEgresos extends Component
     public function deleteEgreso(Egresos $egreso){
 
           $egreso->delete();
+          $this->sumaReporte($this->id_reporte_egreso);
          $this->emit('deleteEgreso', $egreso);
    }
 
@@ -128,5 +138,22 @@ class TableEgresos extends Component
     $this->can_submit = true;
     }
 }
+
+    public function sumaReporte($id_reporte){
+    $ingreso = DB::table('ingresos')->where('id_ingreso_reportes', $id_reporte)->sum('ingreso_importe');
+    $egreso = DB::table('egresos')->where('id_egreso_reportes', $id_reporte)->sum('egreso_importe');
+    $this->sum_importe = $egreso;
+    $this->liquidez = $ingreso - $egreso;
+    $license = ListReportes::find($id_reporte);
+    $license->update([
+            'id' => $id_reporte,
+            'egreso_importe_total' => $this->sum_importe,
+            'estado' => $this->estado,
+            'liquidez' => $this->liquidez,
+    ]);
+}
+
+
+
 
 }

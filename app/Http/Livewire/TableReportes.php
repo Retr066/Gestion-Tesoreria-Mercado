@@ -4,6 +4,11 @@ namespace App\Http\Livewire;
 use App\Models\ListReportes;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
+use App\Models\Ingresos;
+use App\Models\Egresos;
+use PDF;
+use Carbon\Carbon;
 class TableReportes extends Component
 {
     use WithPagination;
@@ -13,20 +18,28 @@ class TableReportes extends Component
     public $camp = null;
     public $order = null;
     public $icon = '-circle';
+    public $liquidez = '';
+    public $color = '';
 
     protected $queryString = [
         'search'=> ['except'=> ''],
         'camp' => ['except'=>null],
         'order' => ['except'=>null],
         'perPage' => ['except'=> '5'],
+        'reportes_estado' => ['except'=> ''],
 
     ];
     protected $listeners = [
         'deleteReporteList'=> 'destroyReporte',
+        'guardaReporte' => 'render',
+        'CrearReporte'=> 'render',
+
+
     ];
 
     public function render()
     {
+
 
         $reportes = ListReportes::where('usuario_id',auth()->user()->id)
         ->where(function ($query){
@@ -36,7 +49,7 @@ class TableReportes extends Component
             ->orWhere('mes','LIKE','%'. $this->search.'%')
             ->orWhere('ingreso_importe_total','LIKE','%'. $this->search.'%')
             ->orWhere('egreso_importe_total','LIKE','%'. $this->search.'%')
-            ->orWhere('liquidez','LIKE','%'. $this->search.'%');
+            ->orWhere('liquidez','LIKE','%'. $this->search.'%')->estado($this->reportes_estado);
 
         });
 
@@ -59,10 +72,10 @@ class TableReportes extends Component
         $reporte->delete();
         $this->emit('destroyReporte',$reporte);
      }
-
-    public function clear(){
+     public function clear(){
         $this->reset();
     }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -101,4 +114,24 @@ class TableReportes extends Component
         }
         return $sort === 'asc' ? '-arrow-circle-up' : '-arrow-circle-down';
     }
+
+    public function GenerarPdf($id){
+        $date = Carbon::now();
+
+        $reporte = ListReportes::find($id);
+        $ingresos = Ingresos::where('id_ingreso_reportes', $id)->get();
+        $ingresos = $ingresos->sortBy('ingreso_fecha');
+        $pdf = PDF::loadView('users.pdf',compact('ingresos','reporte','date'));
+          return  $pdf->stream('reporteIngreso.'.date('y-m-d').'.pdf');
+    }
+
+    public function GenerarPdfEgreso($id){
+        $date = Carbon::now();
+        $reporte = ListReportes::find($id);
+        $egresos = Egresos::where('id_egreso_reportes', $id)->get();
+        $egresos = $egresos->sortBy('egreso_fecha');
+        $pdf = PDF::loadView('users.pdfEgreso',compact('egresos','reporte','date'));
+          return  $pdf->stream('reporteEgreso.'.date('y-m-d').'.pdf');
+    }
+
 }

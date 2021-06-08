@@ -21,6 +21,8 @@ class TableIngresos extends Component
     public $id_reporte ;
     public $can_submit = true;
     public $sum_importe = '';
+    public $estado = 'Proceso';
+    public $liquidez = '';
 
     protected $queryString = [
         'search'=> ['except'=> ''],
@@ -36,6 +38,7 @@ class TableIngresos extends Component
         'showIngresos' => 'render',
         'IngresosList' => 'render',
         'cambio' => 'abrir',
+
 
 
 
@@ -77,8 +80,12 @@ class TableIngresos extends Component
         $this->sum_importe = $test;
     }
     public function clear(){
-        $this->reset();
+        $this->search = '';
+        $this->camp = null;
+        $this->order = null;
+        $this->perPage = 5;
     }
+
 
     public function updatingSearch()
     {
@@ -128,6 +135,7 @@ class TableIngresos extends Component
     public function deleteIngreso(Ingresos $ingreso){
 
          $ingreso->delete();
+         $this->sumaReporte($this->id_reporte);
           $this->emit('deleteIngreso', $ingreso);
     }
     public function editIngreso(Ingresos $ingreso ){
@@ -146,4 +154,23 @@ class TableIngresos extends Component
         $this->can_submit = true;
         }
     }
+
+    public function sumaReporte($id_reporte){
+        $ingreso = DB::table('ingresos')->where('id_ingreso_reportes', $id_reporte)->sum('ingreso_importe');
+        $egreso = DB::table('egresos')->where('id_egreso_reportes', $id_reporte)->sum('egreso_importe');
+        $this->sum_importe = $ingreso;
+        $this->liquidez = $ingreso - $egreso;
+        $license = ListReportes::find($id_reporte);
+        $license->update([
+                'id' => $id_reporte,
+                'ingreso_importe_total' => $this->sum_importe,
+                'estado' => $this->estado,
+                'liquidez' => $this->liquidez,
+        ]);
+    }
+
+
+
+
+
 }

@@ -26,4 +26,13 @@ class ListReportes extends Model
     {
         return $this->hasMany(Egresos::class,'id_egreso_reportes','id');
     }
+
+    public function scopeEstado($query ,$role){
+        if ($role == '') {
+        return;
+        }
+
+        return $query->where('estado',$role);
+    }
+
 }

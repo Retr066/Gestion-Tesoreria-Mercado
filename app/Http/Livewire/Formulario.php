@@ -4,7 +4,8 @@ namespace App\Http\Livewire;
 use App\Models\TipoIngreso;
 use Livewire\Component;
 use App\Models\Ingresos;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\ListReportes;
 class Formulario extends Component
 {
 
@@ -19,6 +20,9 @@ class Formulario extends Component
     public $open = 'hidden';
     public $open2 = '';
     public $can_submit;
+    public $sum_importe;
+    public $estado = 'Proceso';
+    public $liquidez = '';
 
     protected $listeners = [
         'editIngreso'  => 'kk',
@@ -31,7 +35,7 @@ class Formulario extends Component
         $tipos = TipoIngreso::pluck('Descripcion');
         $tipos = $tipos->join(',');
         return [
-            'ingreso_fecha' => 'required|date',
+        'ingreso_fecha' => 'required|date',
         'ingreso_codigo' => 'required|string|min:2|max:15',
         'ingreso_descripcion' => 'required|string|min:3|max:100',
         'tipo_importe' => "required|in:{$tipos}",
@@ -83,6 +87,7 @@ class Formulario extends Component
             'ingreso_importe' =>$this->ingreso_importe,
 
         ]);
+        $this->suma($this->id_reporte);
         $this->reset(['ingreso_fecha','ingreso_codigo','ingreso_descripcion','tipo_importe','ingreso_importe']);
         $this->resetErrorBag();
         $this->resetValidation();
@@ -119,6 +124,11 @@ class Formulario extends Component
             'ingreso_importe'     => $this->ingreso_importe,
         ]);
 
+
+
+
+
+        $this->suma($this->id_reporte);
         $this->reset(['ingreso_fecha','ingreso_codigo','ingreso_descripcion','tipo_importe','ingreso_importe']);
         $this->resetErrorBag();
         $this->resetValidation();
@@ -130,10 +140,31 @@ class Formulario extends Component
 
     }
 
+    public function suma($id_reporte){
+        $ingreso = DB::table('ingresos')->where('id_ingreso_reportes', $id_reporte)->sum('ingreso_importe');
+        $egreso = DB::table('egresos')->where('id_egreso_reportes', $id_reporte)->sum('egreso_importe');
+        $this->sum_importe = $ingreso;
+        $this->liquidez = $ingreso - $egreso;
+        $license = ListReportes::find($id_reporte);
+        $license->update([
+                'id' => $id_reporte,
+                'ingreso_importe_total' => $this->sum_importe,
+                'estado' => $this->estado,
+                'liquidez' => $this->liquidez,
+        ]);
+    }
+
+
+
+
     public function cambio()
     {
         $this->can_submit = true;
         $this->emit('cambio');
     }
+
+
+
+
 
 }
