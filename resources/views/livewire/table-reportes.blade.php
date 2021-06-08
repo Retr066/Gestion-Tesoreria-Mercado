@@ -225,7 +225,7 @@
                         <div class="bg-white px-4 py-3  border-t border-gray-200 sm:px-6">
                             {{ $reportes->links() }}
                         </div>
-                    @elseif (!$reportes->count())
+                    @elseif (!$reportes->count() && $search == '')
                         <div class="bg-white px-4 py-3  border-t border-gray-200 text-gray-500 sm:px-6">
                             No hay Registro de Reportes aun
                         </div>
