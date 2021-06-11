@@ -160,6 +160,7 @@ class TableIngresos extends Component
         $egreso = DB::table('egresos')->where('id_egreso_reportes', $id_reporte)->sum('egreso_importe');
         $this->sum_importe = $ingreso;
         $this->liquidez = $ingreso - $egreso;
+
         $license = ListReportes::find($id_reporte);
         $license->update([
                 'id' => $id_reporte,

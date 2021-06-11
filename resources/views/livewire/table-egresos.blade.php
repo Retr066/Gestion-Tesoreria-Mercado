@@ -1,7 +1,7 @@
 <div class="md:flex ">
 
     <div class=" md:w-auto min-w-full md:min-w-0 ">
-        <label> Egreso Generado Total {{ $sum_importe }}</label>
+        <label> Egreso Generado Total {{ number_format($sum_importe, 2) }}</label>
 
         @livewire('formulario-egreso' ,['id_reporte_egreso' => $id_reporte_egreso,'can_submit' => $can_submit])
     </div>
@@ -109,7 +109,7 @@
 
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm text-gray-900">
-                                                    {{ \Carbon\Carbon::parse($egreso->egreso_fecha)->format('d/m/Y') }}
+                                                    {{ $egreso->egreso_fecha }}
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -125,7 +125,8 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">S/.{{ $egreso->egreso_importe }}
+                                                <div class="text-sm text-gray-900">
+                                                    S/.{{ number_format($egreso->egreso_importe, 2) }}
                                                 </div>
                                             </td>
 

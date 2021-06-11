@@ -9,6 +9,8 @@
         body {
             background-color: #ffffff;
             font-family: Arial;
+            font-size: 13px;
+            box-sizing: border-box;
         }
 
         #main-container {
@@ -21,7 +23,6 @@
             text-align: left;
             border-collapse: collapse;
             width: 100%;
-            -fs-table-paginate: paginate;
 
         }
 
@@ -29,14 +30,15 @@
         td {
             border: 1px solid #000;
             border-collapse: collapse;
-            padding: 2px;
             text-align: center;
+            padding: 2px;
         }
 
         thead {
             background-color: #ffffff;
             color: rgb(0, 0, 0);
             display: table-header-group;
+            text-align: left;
 
         }
 
@@ -51,6 +53,7 @@
 
         .izquierda {
             text-align: left;
+            width: 64%;
         }
 
         h1 {
@@ -87,17 +90,19 @@
             <tbody>
                 @foreach ($ingresos as $ingreso)
                     <tr>
-                        <th scope="row">{{ $ingreso->ingreso_fecha }}</th>
+                        <th scope="row">{{ \Carbon\Carbon::parse($ingreso->ingreso_fecha)->format('d/m/Y') }}</th>
                         <td>{{ $ingreso->ingreso_codigo }}</td>
                         <td class="izquierda">{{ $ingreso->ingreso_descripcion }}</td>
-                        <td>S/.{{ $ingreso->ingreso_importe }}</td>
+                        <td>S/.{{ number_format($ingreso->ingreso_importe, 2) }}</td>
                     </tr>
                 @endforeach
                 <tr>
                     <th scope="row"> </th>
                     <td> </td>
                     <td><b>TOTAL</b></td>
-                    <td style="border:2px solid #000"><b>S/.{{ $reporte->ingreso_importe_total }}</b></td>
+                    <td style="border:2px solid #000">
+                        <b>S/.{{ number_format($reporte->ingreso_importe_total, 2) }}</b>
+                    </td>
                 </tr>
             </tbody>
         </table>

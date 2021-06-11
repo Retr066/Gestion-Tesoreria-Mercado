@@ -9,6 +9,7 @@ use App\Models\Ingresos;
 use App\Models\Egresos;
 use PDF;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 class TableReportes extends Component
 {
     use WithPagination;
@@ -19,7 +20,6 @@ class TableReportes extends Component
     public $order = null;
     public $icon = '-circle';
     public $liquidez = '';
-    public $color = '';
 
     protected $queryString = [
         'search'=> ['except'=> ''],
@@ -33,6 +33,7 @@ class TableReportes extends Component
         'deleteReporteList'=> 'destroyReporte',
         'guardaReporte' => 'render',
         'CrearReporte'=> 'render',
+        'terminarReporteList' => 'terminarReporte',
 
 
     ];
@@ -42,6 +43,7 @@ class TableReportes extends Component
 
 
         $reportes = ListReportes::where('usuario_id',auth()->user()->id)
+        ->whereIn('estado',['Proceso','Generado'])
         ->where(function ($query){
             $query->orWhere('id','LIKE','%'. $this->search.'%')
             ->orWhere('description','LIKE','%'. $this->search.'%')
@@ -67,11 +69,23 @@ class TableReportes extends Component
     }
 
     public function destroyReporte(ListReportes $reporte){
-        /*  User::find($id)->delete(); */
+
 
         $reporte->delete();
         $this->emit('destroyReporte',$reporte);
      }
+
+     public function terminarReporte($reporte){
+        $license = ListReportes::find($reporte);
+        $id_reporte = $license->id;
+        $estado = 'Terminado';
+        $license->update([
+                'id' => $id_reporte,
+                'estado' => $estado,
+        ]);
+        $this->emit('terminarReporte',$reporte);
+     }
+
      public function clear(){
         $this->reset();
     }

@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
             'Descripcion' => 'Articulos de Ferreteria'
         ]);
         TipoEgreso::factory()->create([
-            'Descripcion' => 'Artic. de Aseo. y Protecc.Personal'
+            'Descripcion' => 'Articulos de Aseo y Proteccion Personal'
         ]);
         TipoEgreso::factory()->create([
             'Descripcion' => 'Articulos de Oficina'
@@ -116,7 +116,7 @@ class DatabaseSeeder extends Seeder
             'Descripcion' => 'Servic. de Impresion y Copias'
         ]);
         TipoEgreso::factory()->create([
-            'Descripcion' => 'Gatos Notariable S/PAGO de Autoval'
+            'Descripcion' => 'Gatos Notariable S/pago de Autovalu'
         ]);
         TipoEgreso::factory()->create([
             'Descripcion' => 'Servicios Profesionales'

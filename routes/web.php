@@ -37,6 +37,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/gestionUsuarios', functio
 Route::middleware(['auth:sanctum', 'verified'])->get('/reportes/archivados', function () {
     return view('users.archivados');
 })->name('archivados');
+Route::middleware(['auth:sanctum', 'verified'])->get('/balance/ingresos', function () {
+    return view('users.balanceIngreso');
+})->name('balanceI');
+Route::middleware(['auth:sanctum', 'verified'])->get('/balance/egresos', function () {
+    return view('users.balanceEgreso');
+})->name('balanceE');
 
 Route::get('/reportes', [ListReportesController::class, 'index'])->middleware(['middleware' => 'auth:sanctum'])->name('reportes');
 Route::get('/reportes/IngresoPdf/{id}/dowload', [TableReportes::class, 'GenerarPdf'])->where(['id' => '[0-9]+' ])->middleware(['middleware' => 'auth:sanctum'])->name('pdf');
