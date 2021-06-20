@@ -28,10 +28,53 @@ class DatabaseSeeder extends Seeder
 
          $reporte = ListReportes::factory()->create([
             'usuario_id' =>  $user->id,
+            'mes' => 'Enero'
         ]);
         $reporte2 = ListReportes::factory()->create([
             'usuario_id' =>  $user->id,
+            'mes' => 'Febrero'
         ]);
+        $reporte3 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Marzo'
+        ]);
+        $reporte4 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Abril'
+        ]);
+        $reporte5 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Mayo'
+        ]);
+        $reporte6 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Junio'
+        ]);
+        $reporte7 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Julio'
+        ]);
+        $reporte8 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Agosto'
+        ]);
+        $reporte9 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Setiembre'
+        ]);
+        $reporte10 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Octubre'
+        ]);
+        $reporte11 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Noviembre'
+        ]);
+        $reporte12 = ListReportes::factory()->create([
+            'usuario_id' =>  $user->id,
+            'mes' => 'Diciembre'
+        ]);
+
         ListReportes::factory()->count(80)->create();
         Ingresos::factory()->count(80)->create([
             'id_ingreso_reportes' =>  $reporte->id,
@@ -45,8 +88,76 @@ class DatabaseSeeder extends Seeder
         Egresos::factory()->count(80)->create([
             'id_egreso_reportes' =>  $reporte2->id,
         ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte3->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte3->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte4->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte4->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte5->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte5->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte6->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte6->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte7->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte7->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte8->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte8->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte9->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte9->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte10->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte10->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte11->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte11->id,
+        ]);
+        Ingresos::factory()->count(80)->create([
+            'id_ingreso_reportes' =>  $reporte12->id,
+        ]);
+        Egresos::factory()->count(80)->create([
+            'id_egreso_reportes' =>  $reporte12->id,
+        ]);
+
+
+
+
+
+
+
+        /////////////
         TipoIngreso::factory()->create([
-            'Descripcion' => 'Aportacion.Guard./InsCrip/Cuota Asamblea.'
+            'Descripcion' => 'Aportacion /Guard. /InsCrip /Cuota Asamblea.'
         ]);
         TipoIngreso::factory()->create([
             'Descripcion' => 'Pago de Multas y Faenas.'

@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-3">
+        <h1 class="text-center m-4">Listado de Reportes</h1>
+        <div class="max-w-full mx-auto sm:px-6 lg:px-3">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <livewire:table-reportes />
             </div>

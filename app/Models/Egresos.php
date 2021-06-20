@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TipoEgreso;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,4 +18,9 @@ class Egresos extends Model
         'egreso_importe',
 
     ];
+
+    public function r_tipoEgreso()
+    {
+        return $this->hasOne(TipoEgreso::class,'tipo_importe_egreso','id');
+    }
 }

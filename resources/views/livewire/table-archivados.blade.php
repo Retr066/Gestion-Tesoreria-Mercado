@@ -43,14 +43,14 @@
                                     Desarrollado por
 
                                 </th>
-                                    <th scope="col"
+                                    {{-- <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Descripcion
                                         <button wire:click="sortable('description')">
                                             <span
                                                 class="fa fa{{ $camp === 'description' ? $icon : '-circle' }}"></span>
                                         </button>
-                                    </th>
+                                    </th> --}}
 
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -108,9 +108,9 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $reporte->r_user->name }} {{ $reporte->r_user->lastname }}</div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        {{-- <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $reporte->description }}</div>
-                                        </td>
+                                        </td> --}}
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $reporte->mes }}</div>
                                         </td>

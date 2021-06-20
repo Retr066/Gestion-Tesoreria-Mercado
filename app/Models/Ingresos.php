@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\TipoIngreso;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Ingresos;
@@ -17,5 +17,8 @@ class Ingresos extends Model
         'ingreso_importe',
     ];
 
-
+    public function r_tipoIngreso()
+    {
+        return $this->hasOne(TipoIngreso::class,'tipo_importe','id');
+    }
 }

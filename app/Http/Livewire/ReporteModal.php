@@ -24,7 +24,7 @@ class ReporteModal extends Component
 
     protected function rules()
     {
-        $tipos = "Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Setiembre,Noviembre,Diciembre";
+        $tipos = "Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Setiembre,Noviembre,Octubre,Diciembre";
 
         return [
         'description' => 'required|min:3|max:100',
@@ -42,7 +42,7 @@ class ReporteModal extends Component
     {
         $meses = ['Enero'=> 'Enero','Febrero'=> 'Febrero','Marzo'=> 'Marzo',
         'Abril'=> 'Abril','Mayo'=> 'Mayo','Junio'=> 'Junio','Julio'=> 'Julio','Agosto'=>'Agosto','Setiembre'=> 'Setiembre',
-        'Noviembre'=> 'Noviembre','Diciembre'=> 'Diciembre'];
+        'Octubre' => 'Octubre','Noviembre'=> 'Noviembre','Diciembre'=> 'Diciembre'];
 
         return view('livewire.reporte-modal',[
             'meses' =>$meses,
