@@ -8,6 +8,7 @@ use App\Models\TipoIngreso;
 use App\Models\TipoEgreso;
 use Illuminate\Database\Seeder;
 use  App\Models\User;
+use App\Models\Lote;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -26,56 +27,61 @@ class DatabaseSeeder extends Seeder
         ]);
          \App\Models\User::factory(10)->create();
 
-         $reporte = ListReportes::factory()->create([
+         $lote = Lote::factory()->create([
             'usuario_id' =>  $user->id,
+            'año' => '2021'
+        ]);
+
+         $reporte = ListReportes::factory()->create([
+            'lote_id' =>  $user->id,
             'mes' => 'Enero'
         ]);
         $reporte2 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Febrero'
         ]);
         $reporte3 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Marzo'
         ]);
         $reporte4 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Abril'
         ]);
         $reporte5 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Mayo'
         ]);
         $reporte6 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Junio'
         ]);
         $reporte7 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Julio'
         ]);
         $reporte8 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Agosto'
         ]);
         $reporte9 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Setiembre'
         ]);
         $reporte10 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Octubre'
         ]);
         $reporte11 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Noviembre'
         ]);
         $reporte12 = ListReportes::factory()->create([
-            'usuario_id' =>  $user->id,
+            'lote_id' =>  $user->id,
             'mes' => 'Diciembre'
         ]);
 
-        ListReportes::factory()->count(80)->create();
+
         Ingresos::factory()->count(80)->create([
             'id_ingreso_reportes' =>  $reporte->id,
         ]);

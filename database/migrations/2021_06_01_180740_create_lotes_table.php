@@ -16,9 +16,8 @@ class CreateLotesTable extends Migration
         Schema::create('lotes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('usuario_id')->unsigned();
-            $table->bigInteger('reporte_id')->unsigned();
-            $table->date('año')->nullable();
-            $table->string('descripcion')-nullable();
+            $table->string('año')->nullable();
+            $table->enum('estado',['Generado','Proceso','Terminado']);
             $table->timestamps();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });

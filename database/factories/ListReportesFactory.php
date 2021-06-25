@@ -4,7 +4,7 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\ListReportes;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Lote;
 class ListReportesFactory extends Factory
 {
     /**
@@ -22,11 +22,11 @@ class ListReportesFactory extends Factory
     public function definition()
     {
         return [
-            'usuario_id' => function(){
-                return User::factory()->create()->id;
+            'lote_id' => function(){
+                return Lote::factory()->create()->id;
             },
-            'description' => $this->faker->sentence(),
-            'estado' => $this->faker->randomElement(['Generado','Proceso','Terminado']),
+
+            'estado' => $this->faker->randomElement(['Generado']),
             'mes' => $this->faker->randomElement(['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Noviembre','Diciembre']),
             'ingreso_importe_total' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 5000),
             'egreso_importe_total' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 5000),

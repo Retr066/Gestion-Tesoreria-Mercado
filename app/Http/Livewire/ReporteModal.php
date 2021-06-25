@@ -16,6 +16,7 @@ class ReporteModal extends Component
     public $egreso_importe_total = 0;
     public $liquidez = 0;
     public $estado = 'Generado';
+    public $tituloBoton = '';
 
     protected $listeners = [
         'abrirModal',
@@ -58,6 +59,7 @@ class ReporteModal extends Component
         $this->tituloModal = 'Nuevo Reporte';
         $this->open = true;
         $this->action = 'CrearReporte';
+        $this->tituloBoton = 'Crear Reporte';
     }
     public function cerrarModal(){
         $this->resetErrorBag();
@@ -86,9 +88,10 @@ class ReporteModal extends Component
 
 
     public function editReporte(ListReportes $reporte){
-        $this->tituloModal = 'Nuevo Reporte';
+        $this->tituloModal = 'Actualizar Reporte';
         $this->open = true;
-        $this->action = 'guardaReporte';
+        $this->action = 'Actualizar Reporte';
+        $this->tituloBoton = 'Actualizar Reporte';
         $this->id_reporte = $reporte->id;
         $this->description = $reporte->description;
         $this->mes = $reporte->mes;

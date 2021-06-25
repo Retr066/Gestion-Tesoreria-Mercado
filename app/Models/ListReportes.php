@@ -11,8 +11,7 @@ class ListReportes extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'usuario_id',
-        'description',
+        'lote_id',
         'estado',
         'mes',
         'ingreso_importe_total',

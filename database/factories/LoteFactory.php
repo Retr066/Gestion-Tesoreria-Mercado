@@ -22,7 +22,11 @@ class LoteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'usuario_id' => function(){
+                return User::factory()->create()->id;
+            },
+            'año'=> $this->faker->year($max = 'now'),
+            'estado' => $this->faker->randomElement(['Generado']),
         ];
     }
 }

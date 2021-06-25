@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\ListReportes;
+use App\Models\Lote;
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -79,9 +80,9 @@ class User extends Authenticatable
     }
 
 
-    public function r_reportes()
+    public function r_lotes()
     {
-        return $this->hasMany(ListReportes::class,'usuario_id','id');
+        return $this->hasMany(Lote::class,'usuario_id','id');
     }
 
     public function scopeTermino($query,$termino)

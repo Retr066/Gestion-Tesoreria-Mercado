@@ -58,21 +58,22 @@
             </div>
         </div>
     </form>
-    @if ($open == 'hidden')
-        <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="flex flex-wrap -mx-3 mt-6">
+        @if ($open == 'hidden')
+
             <div class=" {{ $open2 }} w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <x-jet-button wire:click.prevent="saveEgreso()">Guardar</x-jet-secundary-button>
             </div>
-    @endif
-    @if ($open == '')
+        @endif
+        @if ($open == '')
 
 
-        <div class="{{ $open }} w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <x-jet-button wire:click.prevent="updateEgreso()" wire:loading.class="opacity-25">Editar
-                </x-jet-secundary-button>
-        </div>
-    @endif
-</div>
+            <div class="{{ $open }} w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <x-jet-button wire:click.prevent="updateEgreso()" wire:loading.class="opacity-25">Editar
+                    </x-jet-secundary-button>
+            </div>
+        @endif
+    </div>
 </div>
 @push('scripts')
     <script>
@@ -83,6 +84,5 @@
                 }
             });
         }
-
     </script>
 @endpush

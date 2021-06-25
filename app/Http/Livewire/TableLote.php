@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Livewire;
-use Livewire\WithPagination;
-use Livewire\Component;
-use App\Models\ListReportes;
 use App\Models\Lote;
-class TableArchivados extends Component
+use Livewire\Component;
+use Livewire\WithPagination;
+use App\Http\Livewire\TableReportes;
+use App\Models\ListReportes;
+class TableLote extends Component
 {
     use WithPagination;
     public $search = '';
@@ -15,15 +16,26 @@ class TableArchivados extends Component
     public $order = null;
     public $icon = '-circle';
 
-    protected $listeners = [
 
+
+    protected $queryString = [
+        'search'=> ['except'=> ''],
+        'camp' => ['except'=>null],
+        'order' => ['except'=>null],
+        'perPage' => ['except'=> '5'],
+        'lotes_estado' => ['except'=> ''],
+    ];
+
+    protected $listeners = [
+        'CrearAño' => 'render',
+        'listLote' => 'render',
         'Detalles'
     ];
 
     public function render()
     {
 
-        $lotes = Lote::where('estado','Terminado')
+        $lotes = Lote::whereIn('estado',['Proceso','Generado'])
         ->where(function ($query){
             $query->orWhere('id','LIKE','%'. $this->search.'%')
             ->orWhere('año','LIKE','%'. $this->search.'%')
@@ -39,16 +51,23 @@ class TableArchivados extends Component
           }
         $lotes = $lotes->paginate($this->perPage);
 
-        return view('livewire.table-archivados',compact('lotes'));
-    }
-    public function clear(){
-        $this->reset();
+
+        return view('livewire.table-lote',compact('lotes'));
     }
 
     public function Detalles($id){
 
         return redirect()->route('meses',$id);
 
+    }
+
+    public function clear(){
+        $this->reset();
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
     public function mount(){
         $this->icon = $this->iconDirection($this->order);
@@ -84,7 +103,5 @@ class TableArchivados extends Component
         }
         return $sort === 'asc' ? '-arrow-circle-up' : '-arrow-circle-down';
     }
-
-
 
 }

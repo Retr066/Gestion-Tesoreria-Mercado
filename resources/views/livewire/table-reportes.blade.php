@@ -4,7 +4,7 @@
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <div class="flex bg-white px-4 py-3  sm:px-6">
-                        <button wire:click="$emit('abrirModal')"
+                        {{-- <button wire:click="$emit('abrirModal')"
                             class="form-input rounded-md shadow  px-3 py-1 mt-1 mr-6 block">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-600 " fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -12,7 +12,7 @@
                                     d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z"
                                     clip-rule="evenodd" />
                             </svg>
-                        </button>
+                        </button> --}}
                         <input wire:model="search" class="form-input rounded-md shadow-sm mt-1 block w-full" type="text"
                             placeholder="Buscar...">
                         <div class="form-input rounded-md shadow-sm mt-1 ml-6 block ">
@@ -53,15 +53,6 @@
                                             <span class="fa fa{{ $camp === 'id' ? $icon : '-circle' }}"></span>
                                         </button>
                                     </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Descripcion
-                                        <button wire:click="sortable('description')">
-                                            <span
-                                                class="fa fa{{ $camp === 'description' ? $icon : '-circle' }}"></span>
-                                        </button>
-                                    </th>
-
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Mes
@@ -115,10 +106,6 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $reporte->id }}</div>
                                         </td>
-
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $reporte->description }}</div>
-                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $reporte->mes }}</div>
                                         </td>
@@ -141,70 +128,85 @@
                                                     S/.{{ number_format($reporte->liquidez, 2) }}</div>
                                             </td>
                                         @endif
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $reporte->estado }}</div>
-                                        </td>
-
+                                        @if ($reporte->estado == 'Generado')
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">{{ $reporte->estado }}</span>
+                                            </td>
+                                        @elseif($reporte->estado == 'Proceso')
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs">{{ $reporte->estado }}</span>
+                                            </td>
+                                        @elseif ($reporte->estado == 'Terminado')
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">{{ $reporte->estado }}</span>
+                                            </td>
+                                        @endif
                                         <td class="flex px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                            @if ($reporte->estado == 'Generado' || $reporte->estado == 'Proceso')
 
-                                            <a class="text-green-600  hover:text-green-900 whitespace-nowrap"
-                                                href="{{ route('ingresos', $reporte->id) }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </a>
-                                            <a class="text-gray-600  hover:text-gray-900 whitespace-nowrap"
-                                                href="{{ route('pdf', $reporte->id) }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </a>
-                                            <a class="text-red-600  hover:text-red-900"
-                                                href="{{ route('egresos', $reporte->id) }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </a>
-                                            <a class="text-gray-600  hover:text-gray-900 whitespace-nowrap"
-                                                href="{{ route('pdfEgreso', $reporte->id) }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </a>
-                                            <button wire:click="$emit('editReporte',{{ $reporte }})"
-                                                class="text-yellow-400 hover:text-yellow-700">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path
-                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                                    <path fill-rule="evenodd"
-                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
 
-                                            <button onclick="terminarReporte({{ $reporte->id }})"
-                                                class="text-blue-400 hover:text-blue-700">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                            <button onclick="borrarReporte({{ $reporte->id }})"
+                                                <a class="text-green-600  hover:text-green-900 whitespace-nowrap"
+                                                    href="{{ route('ingresos', $reporte->id) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                                <a class="text-gray-600  hover:text-gray-900 whitespace-nowrap"
+                                                    href="{{ route('pdf', $reporte->id) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                                <a class="text-red-600  hover:text-red-900"
+                                                    href="{{ route('egresos', $reporte->id) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                                <a class="text-gray-600  hover:text-gray-900 whitespace-nowrap"
+                                                    href="{{ route('pdfEgreso', $reporte->id) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                                {{-- <button wire:click="$emit('editReporte',{{ $reporte }})"
+                                                    class="text-yellow-400 hover:text-yellow-700">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path
+                                                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button> --}}
+
+                                                <button onclick="terminarReporte({{ $reporte->id }})"
+                                                    class="text-blue-400 hover:text-blue-700">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+
+                                                {{-- <button onclick="borrarReporte({{ $reporte->id }})"
                                                 class="text-red-400 hover:text-red-700">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                     viewBox="0 0 20 20" fill="currentColor">
@@ -212,7 +214,48 @@
                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                                         clip-rule="evenodd" />
                                                 </svg>
-                                            </button>
+                                            </button> --}}
+
+                                            @else
+
+                                                <button class="text-green-600  hover:text-green-900 whitespace-nowrap"
+                                                    wire:click="$emitTo('table-reportes','listIngreso',{{ $reporte->id }})">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                                <a class="text-gray-600  hover:text-gray-900 whitespace-nowrap"
+                                                    href="{{ route('pdf', $reporte->id) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                                <button class="text-red-600  hover:text-red-900"
+                                                    wire:click="$emitTo('table-reportes','listEgreso',{{ $reporte->id }})">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                                <a class="text-gray-600  hover:text-gray-900 whitespace-nowrap"
+                                                    href="{{ route('pdfEgreso', $reporte->id) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+
+                                            @endif
                                         </td>
                                     </tr>
 
@@ -290,6 +333,5 @@
                     'success'
                 )
             });
-
         </script>
     @endpush

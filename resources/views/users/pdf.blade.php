@@ -75,7 +75,7 @@
 </head>
 
 <body>
-    <H1> Movimiento Económico del Mes de {{ $reporte->mes }} {{ $date->year }}</H1>
+    <H1> Movimiento Económico del Mes de {{ $reporte->mes }} {{ $date }}</H1>
     <div class="border-titulo"><b>INGRESOS</b></div>
     <div id="#main-container">
         <table>

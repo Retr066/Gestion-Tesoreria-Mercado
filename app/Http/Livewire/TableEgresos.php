@@ -14,6 +14,7 @@ class TableEgresos extends Component
     public $search = '';
     public $perPage = '5';
     public $id_reporte_egreso ;
+    public $lote_id;
     public $camp = null;
     public $order = null;
     public $icon = '-circle';
@@ -60,16 +61,21 @@ class TableEgresos extends Component
 
         return view('livewire.table-egresos',[
             'egresos'=> $egresos,
-        ])->layout('users.egresos');;
+        ])->layout('users.egresos');
     }
 
 
     public function mount(ListReportes $id){
         $this->id_reporte_egreso = $id;
+        $this->lote_id = $id->lote_id;
         $this->id_reporte_egreso = $this->id_reporte_egreso['id'];
         $this->can_submit = true;
         $this->icon = $this->iconDirection($this->order);
         $this->suma();
+    }
+    public function atras(){
+
+        return redirect()->route('meses',$this->lote_id);
     }
     public function suma(){
         $test = DB::table('egresos')->where('id_egreso_reportes', $this->id_reporte_egreso)->sum('egreso_importe');

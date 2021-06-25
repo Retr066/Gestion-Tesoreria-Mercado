@@ -4,12 +4,13 @@ namespace App\Http\Livewire;
 use Livewire\WithPagination;
 use App\Models\Ingresos;
 use App\Models\ListReportes;
+use App\Models\Lote;
 use Livewire\Component;
 use Auth;
-
-
 use Illuminate\Support\Facades\DB;
-class TableIngresos extends Component
+
+
+class TableIngresosView extends Component
 {
     use WithPagination;
     public $search = '';
@@ -20,10 +21,7 @@ class TableIngresos extends Component
     public $icon = '-circle';
     public $id_reporte ;
     public $lote_id;
-    public $can_submit = true;
-    public $sum_importe = '';
-    public $estado = 'Proceso';
-    public $liquidez = '';
+
 
     protected $queryString = [
         'search'=> ['except'=> ''],
@@ -32,24 +30,8 @@ class TableIngresos extends Component
         'perPage' => ['except'=> '5'],
 
     ];
-
-    protected $listeners = [
-        'deleteIngresoList' => 'deleteIngreso',
-        'reporteList' => 'render',
-        'showIngresos' => 'render',
-        'IngresosList' => 'render',
-        'cambio' => 'abrir',
-
-
-
-
-    ];
-
-
     public function render()
     {
-
-        $this->suma();
         $ingresos = Ingresos::where('id_ingreso_reportes', $this->id_reporte)
                             ->where(function ($query){
                                 $query ->orWhere('id','LIKE','%'. $this->search.'%')
@@ -68,18 +50,10 @@ class TableIngresos extends Component
                                   $this->order = null;
                               }
                             $ingresos = $ingresos->paginate($this->perPage);
-
-        return view('livewire.table-ingresos',[
-            'ingresos' => $ingresos,
-        ])->layout('users.ingresos');
+        return view('livewire.table-ingresos-view',compact('ingresos'))->layout('users.viewIngresos');
     }
 
 
-
-    public function suma(){
-        $test = DB::table('ingresos')->where('id_ingreso_reportes', $this->id_reporte)->sum('ingreso_importe');
-        $this->sum_importe = $test;
-    }
     public function clear(){
         $this->search = '';
         $this->camp = null;
@@ -99,10 +73,8 @@ class TableIngresos extends Component
         $this->lote_id = $id->lote_id;
         $this->id_reporte = $this->id_reporte['id'];
         $this->icon = $this->iconDirection($this->order);
-       $this->can_submit = true;
-       $this->suma();
-    }
 
+    }
     public function atras(){
 
         return redirect()->route('meses',$this->lote_id);
@@ -138,47 +110,4 @@ class TableIngresos extends Component
         }
         return $sort === 'asc' ? '-arrow-circle-up' : '-arrow-circle-down';
     }
-
-    public function deleteIngreso(Ingresos $ingreso){
-
-         $ingreso->delete();
-         $this->sumaReporte($this->id_reporte);
-          $this->emit('deleteIngreso', $ingreso);
-    }
-    public function editIngreso(Ingresos $ingreso ){
-
-        $this->cambio();
-        $this->emit('editIngreso', $ingreso);
-    }
-
-    public function cambio(){
-        if($this->can_submit == true){
-            $this->can_submit = false;
-        }
-    }
-    public function abrir(){
-        if($this->can_submit == false){
-        $this->can_submit = true;
-        }
-    }
-
-    public function sumaReporte($id_reporte){
-        $ingreso = DB::table('ingresos')->where('id_ingreso_reportes', $id_reporte)->sum('ingreso_importe');
-        $egreso = DB::table('egresos')->where('id_egreso_reportes', $id_reporte)->sum('egreso_importe');
-        $this->sum_importe = $ingreso;
-        $this->liquidez = $ingreso - $egreso;
-
-        $license = ListReportes::find($id_reporte);
-        $license->update([
-                'id' => $id_reporte,
-                'ingreso_importe_total' => $this->sum_importe,
-                'estado' => $this->estado,
-                'liquidez' => $this->liquidez,
-        ]);
-    }
-
-
-
-
-
 }

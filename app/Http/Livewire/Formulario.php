@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 use App\Models\TipoIngreso;
 use Livewire\Component;
 use App\Models\Ingresos;
+use App\Models\Lote;
 use Illuminate\Support\Facades\DB;
 use App\Models\ListReportes;
 class Formulario extends Component
@@ -152,6 +153,14 @@ class Formulario extends Component
                 'estado' => $this->estado,
                 'liquidez' => $this->liquidez,
         ]);
+        $id = $license->lote_id;
+        $lote = Lote::find($id);
+        $lote->update([
+            'id' => $id,
+            'estado' => 'Proceso'
+        ]);
+
+
     }
 
 

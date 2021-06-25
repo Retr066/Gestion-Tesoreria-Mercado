@@ -10,16 +10,18 @@ class modalLayout extends Component
     public $open;
     public $tituloModal;
     public $action;
+    public $tituloBoton;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $open ,string $tituloModal,string $action)
+    public function __construct(string $open ,string $tituloModal,string $action,string $tituloBoton)
     {
        $this->open = $open;
        $this->tituloModal = $tituloModal;
        $this->action = $action;
+       $this->tituloBoton = $tituloBoton;
 
     }
 
