@@ -13,7 +13,9 @@ class BalanceIngreso extends Component
         'filtro'
     ];
 
-    public $readyToLoad = false;
+
+    public $total = [];
+    public $total_final = [];
 
     public function render()
     {
@@ -22,36 +24,12 @@ class BalanceIngreso extends Component
         'Abril'=> 'Abril','Mayo'=> 'Mayo','Junio'=> 'Junio','Julio'=> 'Julio','Agosto'=>'Agosto','Setiembre'=> 'Setiembre',
         'Octubre' => 'Octubre','Noviembre'=> 'Noviembre','Diciembre'=> 'Diciembre'];
 
-       /*  $total_importe_meses = array();
-        foreach ($meses as  $mes) {
-            $users = DB::table('ingresos')
-            ->join('list_reportes', 'ingresos.id_ingreso_reportes', '=', 'list_reportes.id')
-            ->join('lotes', 'ingresos.id_ingreso_reportes', '=', 'list_reportes.id')
-            ->select('ingresos.*', 'list_reportes.*')
-            ->where('list_reportes.mes','=',$mes)
-            ->where('ingresos.tipo_importe','=','Aportacion /Guard. /InsCrip /Cuota Asamblea.')
-            ->get();
-         $meses_total = $users->sum('ingreso_importe');
-         array_push($total_importe_meses  , $meses_total);
-        }
-
-        dd($total_importe_meses); */
-
-        /* $orders = DB::table('ingresos')
-                ->where('')
-                ->where('tipo_importe','Aportacion /Guard. /InsCrip /Cuota Asamblea.')
-                ->select('ingreso_importe')
-                ->get();
-                dd($orders->sum('ingreso_importe'));
- */
-       /*  $ingreso = DB::table('ingresos')->where('tipo_importe', 'Aportacion /Guard. /InsCrip /Cuota Asamblea.')->sum('tipo_importe'); */
-
         return view('livewire.balance-ingreso',compact('meses','tipos'));
     }
 
     public function filtro($año){
-     $tipos = ['Aportacion /Guard. /InsCrip /Cuota Asamblea.','Pago de Multas y Faenas.','Cancelacion de Deudas.','Aportacion Atrazadas Alquiler','Alumbrado Interno',
-            'Alquiler','Ambulante','Consumo de Agua','SS.HH Limpieza Publica','Pago por Autovaluo','Aportacion por Actividad y Donaciones','Nuevos Socios Ingresos Varios','Ninguno'];
+     $tipos = ['Aportacion /Guard. /InsCrip /Cuota Asamblea.','Pago de Multas y Faenas.','Cancelacion de Deudas.','Aportacion Atrazadas Alquiler','Aportacion Atrazadas Guard.','Alumbrado Interno',
+     'Alquiler','Ambulante','Consumo de Agua','SS.HH Limpieza Publica','Pago por Autovaluo','Aportacion por Actividad y Donaciones','Nuevos Socios Ingresos Varios'];
 
 
         $meses = ['Enero'=> 'Enero','Febrero'=> 'Febrero','Marzo'=> 'Marzo',
@@ -59,8 +37,10 @@ class BalanceIngreso extends Component
         'Octubre' => 'Octubre','Noviembre'=> 'Noviembre','Diciembre'=> 'Diciembre'];
         $total_importe_meses = array();
         $total_final = array();
-    foreach ($tipos as  $tipo) {
-        foreach ($meses as  $mes) {
+        $kk = array();
+        $kk_total = array();
+    foreach ($meses as  $mes) {
+        foreach ($tipos as  $tipo) {
             $users = DB::table('list_reportes')
             ->join('lotes', 'list_reportes.lote_id', '=', 'lotes.id')
             ->join('ingresos', 'list_reportes.id', '=', 'ingresos.id_ingreso_reportes')
@@ -70,15 +50,28 @@ class BalanceIngreso extends Component
             ->where('ingresos.tipo_importe','=',$tipo)
             ->get();
          $meses_total = $users->sum('ingreso_importe');
-         $total_importe_meses[$mes] = $meses_total;
+         $total_importe_meses[$tipo] = $meses_total;
 
         }
 
-        $total_final[$tipo] = $total_importe_meses;
+        $total_final[$mes] = $total_importe_meses;
     }
 
-    $this->readyToLoad = true;
-        return $total_final;
+
+         $this->total = $total_final;
+
+            foreach ($tipos as  $value) {
+            foreach($this->total as $key => $aea){
+             $kk[$key] = $aea[$value];
+             $kk_total[$value] = array_sum($kk);
+            }
+        }
+
+        $this->total_final = $kk_total;
+
+         return  $this->total;
+
+
     }
 
 

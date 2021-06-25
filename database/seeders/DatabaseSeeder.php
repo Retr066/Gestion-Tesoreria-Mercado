@@ -204,6 +204,8 @@ class DatabaseSeeder extends Seeder
         TipoIngreso::factory()->create([
             'Descripcion' => 'Ninguno'
         ]);
+
+
          ////////////////////////////////
          TipoEgreso::factory()->create([
             'Descripcion' => 'Directiva Pagos de Socios'

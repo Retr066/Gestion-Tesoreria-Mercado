@@ -28,7 +28,9 @@ class EgresosFactory extends Factory
             'egreso_fecha' => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
             'egreso_codigo' => $this->faker->numberBetween($min = 1000, $max = 9000),
             'egreso_descripcion' => $this->faker->sentence(),
-            'tipo_importe_egreso' => $this->faker->company(),
+            'tipo_importe_egreso' => $this->faker->randomElement(['Directiva Pagos de Socios','Fondo de Salud','Tributo','Honorarios Guardiania Baño Cobranza','Servicios Publicos',
+            'Articulos de Ferreteria','Articulos de Aseo y Proteccion Personal','Articulos de Oficina','Servic. de Impresion y Copias','Gatos Notariable S/pago de Autovalu',
+            'Servicios Profesionales','Gastos Varios','Mant. Y Reparacion','Ninguno']),
             'egreso_importe' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 5000),
         ];
     }
