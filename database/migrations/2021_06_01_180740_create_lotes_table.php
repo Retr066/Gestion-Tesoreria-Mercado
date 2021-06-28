@@ -18,6 +18,8 @@ class CreateLotesTable extends Migration
             $table->bigInteger('usuario_id')->unsigned();
             $table->string('año')->nullable();
             $table->double('saldo', 15, 2)->nullable();
+            $table->double('saldo_semestre', 15, 2)->nullable();
+            $table->double('saldo_segundo_semestre', 15, 2)->nullable();
             $table->enum('estado',['Generado','Proceso','Terminado']);
             $table->timestamps();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

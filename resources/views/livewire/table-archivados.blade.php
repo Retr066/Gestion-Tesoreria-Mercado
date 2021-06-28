@@ -64,13 +64,43 @@
                                     </div>
 
                                     <div class="text-gray-600 font-medium text-sm pt-1 text-center lg:text-left px-2">
-                                        No:{{ $lote->id }} ---- Estado
+                                        No:{{ $lote->id }} -- Estado
                                         <span
                                             class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">{{ $lote->estado }}</span>
+                                            @if ($lote->saldo !== null )
+                                                @if ($lote->saldo > 0)
+                                            Saldo {{ $lote->año }} :<span class=" text-sm text-green-600 hover:text-green-900 "> S/.{{ number_format($lote->saldo,2) }}</span>
+                                                @else
+                                            Saldo {{ $lote->año }} :<span class=" text-sm text-red-600 hover:text-red-900 "> S/.{{ number_format($lote->saldo,2) }}</span>
+                                                @endif
+                                            @endif
+
                                     </div>
+                                    <div class="text-gray-600 font-medium text-sm pt-1 text-center lg:text-left px-2">
+                                            @if ($lote->saldo_semestre !== null )
+                                                @if ($lote->saldo_semestre > 0)
+                                            Saldo Julio {{ $lote->año }} :<span class=" text-sm text-green-600 hover:text-green-900 "> S/.{{ number_format($lote->saldo_semestre,2) }}</span>
+                                                @else
+                                            Saldo Julio {{ $lote->año }} :<span class=" text-sm text-red-600 hover:text-red-900 "> S/.{{ number_format($lote->saldo_semestre,2) }}</span>
+                                                @endif
+                                            @endif
+                                            @if ($lote->saldo_segundo_semestre !== null )
+                                                @if ($lote->saldo_segundo_semestre > 0)
+                                            Saldo Diciembre {{ $lote->año }} :<span class=" text-sm text-green-600 hover:text-green-900 "> S/.{{ number_format($lote->saldo_segundo_semestre,2) }}</span>
+                                                @else
+                                            Saldo Diciembre {{ $lote->año }} :<span class=" text-sm text-red-600 hover:text-red-900 "> S/.{{ number_format($lote->saldo_segundo_semestre,2) }}</span>
+                                                @endif
+                                            @endif
+
+                                    </div>
+
                                 </div>
                                 <div
                                     class="flex flex-row items-center w-full lg:w-1/3 bg-white lg:justify-end justify-center px-2 py-4 lg:px-0">
+                                    <span
+                                        class="flex items-center tracking-wider text-gray-600 bg-gray-200 px-2 text-sm rounded leading-loose mx-2 font-semibold">
+
+                                    </span>
                                     <span
                                         class="flex items-center tracking-wider text-gray-600 bg-gray-200 px-2 text-sm rounded leading-loose mx-2 font-semibold">
                                         Detalles

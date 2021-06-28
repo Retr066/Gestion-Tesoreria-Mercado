@@ -50,8 +50,6 @@
                     </div>
                     @if ($lotes->count())
                         @foreach ($lotes as $lote)
-
-
                             <div class="lg:flex shadow rounded-lg border  border-gray-400 m-2 mx-5">
                                 <div class="bg-blue-600 rounded-lg lg:w-2/12 py-4 block h-full shadow-inner">
                                     <div class="text-center tracking-wide">
@@ -129,7 +127,7 @@
                         </div>
                     @elseif (!$lotes->count() && $search == '')
                         <div class="bg-white px-4 py-3  border-t border-gray-200 text-gray-500 sm:px-6">
-                            No hay Registro de Reportes aun
+                            No hay Registro de Años aun
                         </div>
                     @else
                         <div class="bg-white px-4 py-3  border-t border-gray-200 text-gray-500 sm:px-6">

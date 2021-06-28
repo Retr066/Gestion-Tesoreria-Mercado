@@ -1,10 +1,27 @@
 <div class="max-w-10/12 mx-auto text-center sm:px-6 lg:px-8">
-    <div class="flex flex-col  ">
+    <div wire:loading>
+        <div style="display: flex; justify-content:center; align-items:center; background-color:black;
+            position:fixed; top:0px; left:0px; z-index: 9999; width:100%; height:100%; opacity:.75;">
+    <div style="color: #9988cd" class="la-ball-spin-clockwise-fade-rotating la-3x">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+        </div>
+</div>
+
+     <div class="flex flex-col  ">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <div class="flex bg-white px-4 py-3  sm:px-6">
                         <table class="min-w-full divide-y divide-gray-200">
+
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col"
@@ -26,9 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @php
 
-                                @endphp
                                 @foreach ($this->total as $key => $total)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -36,63 +51,63 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div id="sum" class="text-sm text-gray-900 suma">
-                                                S/.{{ number_format($total['Aportacion /Guard. /InsCrip /Cuota Asamblea.'], 2) }}
+                                                S/.{{ number_format($total['Directiva Pagos de Socios'], 2) }}
                                             </div>
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Pago de Multas y Faenas.'], 2) }}</div>
+                                                S/.{{ number_format($total['Fondo de Salud'], 2) }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900 ">
-                                                S/.{{ number_format($total['Cancelacion de Deudas.'], 2) }}
+                                                S/.{{ number_format($total['Tributo'], 2) }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Aportacion Atrazadas Alquiler'], 2) }}
+                                                S/.{{ number_format($total['Honorarios Guardiania Baño Cobranza'], 2) }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Aportacion Atrazadas Guard.'], 2) }}</div>
+                                                S/.{{ number_format($total['Servicios Publicos'], 2) }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Alumbrado Interno'], 2) }}</div>
+                                                S/.{{ number_format($total['Articulos de Ferreteria'], 2) }}</div>
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Alquiler'], 2) }}</div>
+                                                S/.{{ number_format($total['Articulos de Aseo y Proteccion Personal'], 2) }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Ambulante'], 2) }}</div>
+                                                S/.{{ number_format($total['Articulos de Oficina'], 2) }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Consumo de Agua'], 2) }}</div>
+                                                S/.{{ number_format($total['Servic. de Impresion y Copias'], 2) }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['SS.HH Limpieza Publica'], 2) }}
+                                                S/.{{ number_format($total['Gatos Notariable S/pago de Autovalu'], 2) }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Pago por Autovaluo'], 2) }}
+                                                S/.{{ number_format($total['Servicios Profesionales'], 2) }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Aportacion por Actividad y Donaciones'], 2) }}
+                                                S/.{{ number_format($total['Gastos Varios'], 2) }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                S/.{{ number_format($total['Nuevos Socios Ingresos Varios'], 2) }}
+                                                S/.{{ number_format($total['Mant. Y Reparacion'], 2) }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -103,7 +118,6 @@
 
                                 @endforeach
                                 <tr>
-
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Totales
@@ -121,8 +135,9 @@
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>

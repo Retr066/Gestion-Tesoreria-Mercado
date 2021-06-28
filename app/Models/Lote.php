@@ -11,6 +11,9 @@ class Lote extends Model
     protected $fillable = [
         'usuario_id',
         'año',
+        'saldo',
+        'saldo_semestre',
+        'saldo_segundo_semestre',
         'estado',
     ];
 
