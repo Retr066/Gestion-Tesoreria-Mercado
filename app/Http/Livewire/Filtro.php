@@ -241,13 +241,14 @@ class Filtro extends Component
           $saldo = $lote->saldo;
 
           $loco =  Lote::where('id','<',$id)->orderBy('id','desc')->limit(1)->get();
-          $año_atras = $loco[0]->año;
             if($loco->isEmpty() ){
                 $saldo_anterior = null;
+                $año_atras = null;
             }else{
+                dd($loco[0]->año);
+                $año_atras = $loco[0]->año;
                 $saldo_anterior = $loco[0]->saldo;
                 $total_final['Aportacion /Guard. /InsCrip /Cuota Asamblea.'] = $total_final['Aportacion /Guard. /InsCrip /Cuota Asamblea.'] + $saldo_anterior;
-
             }
 
         }

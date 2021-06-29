@@ -101,7 +101,7 @@
             </tr>
         </thead>
         <tbody>
-            @if ($saldo_anterior !== null)
+            @if ($saldo_anterior !== null && $año_atras !== null)
             <tr>
                 <th class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-gray-900">Saldo {{ $año_atras }}</div>
