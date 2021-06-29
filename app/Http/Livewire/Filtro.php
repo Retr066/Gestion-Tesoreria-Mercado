@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Lote;
+use PDF;
 class Filtro extends Component
 {
     public $show = false;
@@ -12,11 +13,14 @@ class Filtro extends Component
     public $tipo_año;
     public $saldo ;
     public $lote;
+    ////////////////////////////////////////////////////////////////
+    public $total_final = [];
 
     protected $listeners = [
         'verSaldo'=> 'guardarSaldo',
         'verSaldoSemestre'=> 'guardarSaldoSemestre',
         'verSaldoSemestreSegundo' => 'guardarSaldoSemestreSegundo',
+        'recuperarDatos'
     ];
 
     protected function rules()
@@ -49,6 +53,11 @@ class Filtro extends Component
 
 
         return view('livewire.filtro');
+    }
+
+    public function mount(){
+        $this->show = false;
+        $this->viewSaldo = false;
     }
 
 
@@ -124,6 +133,20 @@ class Filtro extends Component
             'id' =>$id,
             'saldo_segundo_semestre' => $value,
         ]);
+    }
+
+    public function recuperarDatos($datos = array()) {
+        $this->total_final = $datos;
+    }
+
+    public function GenerarPdf($id){
+        $lote = Lote::find($id);
+        $date = $lote->año;
+        $total_final = array();
+        $total_final = $this->total_final;
+        dd($total_final);
+        $pdf = PDF::loadView('users.pdfBalance',compact('lote','date'));
+        return  $pdf->setPaper('a4','landscape')->stream('balance.'.date('y-m-d').'.pdf');
     }
 
 }

@@ -71,7 +71,7 @@
         }
 
     </style>
-    <title>Document</title>
+    <title>Ingresos</title>
 </head>
 
 <body>

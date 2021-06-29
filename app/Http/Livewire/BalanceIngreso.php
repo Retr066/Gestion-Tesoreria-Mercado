@@ -79,6 +79,7 @@ class BalanceIngreso extends Component
             }
         }
         $this->total_final = $kk_total;
+        $this->emitTo('filtro','recuperarDatos',$kk_total);
     }
 
     public function filtroSemestre($año){
@@ -223,5 +224,7 @@ class BalanceIngreso extends Component
         $this->saldoTotal = $saldo ;
         $this->emitTo('filtro','verSaldoSemestreSegundo',$saldo);
     }
+
+
 
 }

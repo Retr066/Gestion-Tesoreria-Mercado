@@ -9,6 +9,7 @@ use App\Http\Livewire\TableEgresos;
 use App\Http\Livewire\TableReportes;
 use App\Http\Livewire\TableIngresosView;
 use App\Http\Livewire\TableEgresosView;
+use App\Http\Livewire\Filtro;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,12 +42,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/gestionUsuarios', functio
 Route::middleware(['auth:sanctum', 'verified'])->get('finanzas/archivados', function () {
     return view('users.archivados');
 })->name('archivados');
-Route::middleware(['auth:sanctum', 'verified'])->get('balance/ingresos', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('balance', function () {
     return view('users.balanceIngreso');
 })->name('balanceI');
-Route::middleware(['auth:sanctum', 'verified'])->get('balance/egresos', function () {
-    return view('users.balanceEgreso');
-})->name('balanceE');
+
+Route::get('balance/BalancePdf/{id}/dowload', [Filtro::class, 'GenerarPdf'])->where(['id' => '[0-9]+' ])->middleware(['middleware' => 'auth:sanctum'])->name('balancePdf');
 
 Route::get('finanzas', [ListReportesController::class, 'index'])->middleware(['middleware' => 'auth:sanctum'])->name('reportes');
 Route::middleware(['auth:sanctum', 'verified'])->get('finanzas/meses/{id}',TableReportes::class ,'render')->where(['id' => '[0-9]+' ])->name('meses');
