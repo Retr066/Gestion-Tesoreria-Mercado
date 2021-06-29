@@ -46,7 +46,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('balance', function () {
     return view('users.balanceIngreso');
 })->name('balanceI');
 
-Route::get('balance/BalancePdf/{id}/dowload', [Filtro::class, 'GenerarPdf'])->where(['id' => '[0-9]+' ])->middleware(['middleware' => 'auth:sanctum'])->name('balancePdf');
+Route::get('balance/BalancePdf/{id}/dowload/{tipo}', [Filtro::class, 'GenerarPdf'])->where(['id' => '[0-9]+' ])->middleware(['middleware' => 'auth:sanctum'])->name('balancePdf');
 
 Route::get('finanzas', [ListReportesController::class, 'index'])->middleware(['middleware' => 'auth:sanctum'])->name('reportes');
 Route::middleware(['auth:sanctum', 'verified'])->get('finanzas/meses/{id}',TableReportes::class ,'render')->where(['id' => '[0-9]+' ])->name('meses');

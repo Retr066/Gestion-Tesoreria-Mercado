@@ -1,4 +1,4 @@
-<div>
+<div wire:init='kk'>
     <div  x-data="{optionsVisible : @entangle('show'), }" class="border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg m-3">
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -74,9 +74,9 @@
                     </div>
                 </div>
                 @endif
-                @if ($lote !== null)
+                @if ($this->lote !== null )
                 <div class="p-2 md:w-40 ">
-                    <a class="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-gray-500 hover:text-gray-100"  href="{{ route('balancePdf', $lote) }}">
+                    <a class="flex items-center p-4 bg-gray-200 rounded-lg shadow-xs cursor-pointer hover:bg-gray-500 hover:text-gray-100"  {{-- href="{{ route('balancePdf',$this->lote, $this->tipo) }}" --}}  wire:click="test()">
 
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd" />
@@ -95,3 +95,12 @@
          </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    Livewire.on('datosTest', (datos) => {
+                let datasos = JSON.stringify(datos);
+                localStorage.setItem('todosDatos',datasos);
+            });
+
+</script>
+@endpush

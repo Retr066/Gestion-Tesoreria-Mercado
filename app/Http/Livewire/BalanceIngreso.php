@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Ingresos;
 use App\Models\Lote;
 use Illuminate\Support\Facades\DB;
+
 class BalanceIngreso extends Component
 {
 
@@ -79,7 +80,7 @@ class BalanceIngreso extends Component
             }
         }
         $this->total_final = $kk_total;
-        $this->emitTo('filtro','recuperarDatos',$kk_total);
+        $this->emitTo('filtro','recuperarDatos',$total_final);
     }
 
     public function filtroSemestre($año){

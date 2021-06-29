@@ -164,7 +164,7 @@
 </div>
 
 @push('styles')
-    <style>
+<style>
 
 .la-ball-spin-clockwise-fade-rotating,
 .la-ball-spin-clockwise-fade-rotating > div {
