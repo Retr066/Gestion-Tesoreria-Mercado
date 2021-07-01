@@ -87,7 +87,7 @@ class BalanceEgreso extends Component
 
 
            $meses = ['Enero'=> 'Enero','Febrero'=> 'Febrero','Marzo'=> 'Marzo',
-           'Abril'=> 'Abril','Mayo'=> 'Mayo','Junio'=> 'Junio','Julio'=> 'Julio'];
+           'Abril'=> 'Abril','Mayo'=> 'Mayo','Junio'=> 'Junio'];
            $total_importe_meses = array();
            $total_final = array();
            $kk = array();
@@ -130,7 +130,7 @@ class BalanceEgreso extends Component
         'Servicios Profesionales','Gastos Varios','Mant. Y Reparacion'];
 
 
-           $meses = ['Agosto'=>'Agosto','Setiembre'=> 'Setiembre',
+           $meses = ['Julio'=> 'Julio','Agosto'=>'Agosto','Setiembre'=> 'Setiembre',
            'Octubre' => 'Octubre','Noviembre'=> 'Noviembre','Diciembre'=> 'Diciembre'];
            $total_importe_meses = array();
            $total_final = array();

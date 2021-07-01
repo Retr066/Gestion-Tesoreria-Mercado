@@ -5,7 +5,7 @@
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <div class="flex bg-white px-4 py-3  sm:px-6">
                         @if ($lotes->count() < 1)
-                            <button wire:click="$emitTo('lote-modal','abrirModal')"
+                            <button onclick="crearAño()"
                                 class="form-input rounded-md shadow  px-3 py-1 mt-1 mr-6 block">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-600 " fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -176,5 +176,22 @@
                     }
                 })
             });
+
+            function crearAño() {
+                Swal.fire({
+                    title: 'Crear Año?',
+                    text: "Desea Crear Un nuevo Año??",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Crealo!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emitTo('lote-modal', 'crearAñoNuevo');
+
+                    }
+                })
+            };
         </script>
     @endpush

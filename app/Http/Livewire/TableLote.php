@@ -17,7 +17,6 @@ class TableLote extends Component
     public $icon = '-circle';
 
 
-
     protected $queryString = [
         'search'=> ['except'=> ''],
         'camp' => ['except'=>null],
@@ -29,7 +28,8 @@ class TableLote extends Component
     protected $listeners = [
         'CrearAño' => 'render',
         'listLote' => 'render',
-        'Detalles'
+        'Detalles',
+
     ];
 
     public function render()
@@ -54,6 +54,7 @@ class TableLote extends Component
 
         return view('livewire.table-lote',compact('lotes'));
     }
+
 
     public function Detalles($id){
 

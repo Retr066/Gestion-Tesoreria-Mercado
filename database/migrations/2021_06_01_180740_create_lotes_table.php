@@ -16,7 +16,7 @@ class CreateLotesTable extends Migration
         Schema::create('lotes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('usuario_id')->unsigned();
-            $table->string('año')->nullable();
+            $table->integer('año')->nullable();
             $table->double('saldo', 15, 2)->nullable();
             $table->double('saldo_semestre', 15, 2)->nullable();
             $table->double('saldo_segundo_semestre', 15, 2)->nullable();

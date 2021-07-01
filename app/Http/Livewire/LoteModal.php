@@ -5,6 +5,7 @@ use Illuminate\Validation\Rule;
 use Livewire\Component;
 use App\Models\ListReportes;
 use App\Models\Lote;
+use Carbon\Carbon;
 class LoteModal extends Component
 {
     public $open = false;
@@ -19,6 +20,7 @@ class LoteModal extends Component
     public $estado = 'Generado';
     protected $listeners = [
         'abrirModal',
+        'crearAñoNuevo'
     ];
 
     protected function rules()
@@ -69,8 +71,41 @@ class LoteModal extends Component
         $this->reset();
     }
 
+    public function crearAñoNuevo(){
+        $date = Carbon::now();
+        $year =  $date->year;
+        $lote = Lote::all();
+        $lote = $lote->last();
+        if($lote == null){
+            Lote::create([
+                'usuario_id' => auth()->user()->id,
+                'año' => $year,
+                'estado'=> 'Generado',
+            ]);
+            $lote2 = Lote::all();
+            $this->id_lote = $lote2->last()->id;
+            $this->CrearMeses();
+            $this->emit('CrearAño');
+        }else{
+
+            $loteyear =  $lote->año;
+            $loteyear++;
+            $loteyear;
+            Lote::create([
+                'usuario_id' => auth()->user()->id,
+                'año' => $loteyear,
+                'estado'=> 'Generado',
+            ]);
+            $lote2 = Lote::all();
+            $this->id_lote = $lote2->last()->id;
+            $this->CrearMeses();
+            $this->emit('CrearAño');
+        }
+
+    }
     public function CrearAño(){
         $this->validate();
+
         Lote::create([
             'usuario_id' => auth()->user()->id,
             'año' => $this->año,

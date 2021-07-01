@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
          $lote = Lote::factory()->create([
             'usuario_id' =>  $user->id,
-            'año' => '2021'
+            'año' => 2021,
         ]);
 
          $reporte = ListReportes::factory()->create([

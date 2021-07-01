@@ -312,7 +312,7 @@
             function terminarReporte(reporte) {
                 Swal.fire({
                     title: 'Estas Seguro de Terminar?',
-                    text: `El Reporte ${reporte} se terminara y no se podras hacer cambios!`,
+                    text: `El mes ${reporte} se terminara y no se podras hacer cambios!`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -328,8 +328,8 @@
 
             Livewire.on('terminarReporte', (reporte) => {
                 Swal.fire(
-                    'Borrado!',
-                    `El Reporte ${reporte} a concluido corrrectamente`,
+                    'Terminado!',
+                    `El mes ${reporte} a concluido corrrectamente`,
                     'success'
                 )
             });
