@@ -9,6 +9,8 @@ use App\Models\TipoEgreso;
 use Illuminate\Database\Seeder;
 use  App\Models\User;
 use App\Models\Lote;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,12 +23,35 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'name' =>'Jherson',
             'lastname' =>'Lopez',
-            'email' => 'jherson@gmail.com',
-             'role' => 'admin',
+            'email' => 'jherson.lopez88@gmail.com',
+
+            'password' => bcrypt('12345'),
+        ]);
+        $user2 = User::create([
+            'name' =>'test',
+            'lastname' =>'test',
+            'email' => 'test@gmail.com',
+
             'password' => bcrypt('12345'),
         ]);
          \App\Models\User::factory(10)->create();
 
+
+        $role = Role::create(['name' => 'Jefe']);
+        $role2 = Role::create(['name' => 'Trabajador']);
+
+        Permission::create(['name' => 'trabajador.ver'])->syncRoles([$role,$role2]);
+        Permission::create(['name' => 'trabajador.crear'])->syncRoles([$role,$role2]);
+        Permission::create(['name' => 'trabajador.actulizar'])->syncRoles([$role,$role2]);
+        Permission::create(['name' => 'trabajador.eliminar'])->syncRoles([$role,$role2]);
+
+        Permission::create(['name' => 'jefe.ver'])->syncRoles($role2);
+        Permission::create(['name' => 'jefe.crear'])->syncRoles($role2);
+        Permission::create(['name' => 'jefe.actulizar'])->syncRoles($role2);
+        Permission::create(['name' => 'jefe.eliminar'])->syncRoles($role2);
+
+        $user->assignRole('Jefe');
+        $user2->assignRole('Trabajador');
          $lote = Lote::factory()->create([
             'usuario_id' =>  $user->id,
             'año' => 2021,

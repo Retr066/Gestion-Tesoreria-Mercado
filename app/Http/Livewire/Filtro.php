@@ -313,7 +313,7 @@ class Filtro extends Component
 
           $saldo = $lote->saldo;
 
-
+          $loco =  Lote::where('id','<',$id)->orderBy('id','desc')->limit(1)->get();
             if($loco->isEmpty() ){
                 $saldo_anterior = null;
                 $año_atras = null;

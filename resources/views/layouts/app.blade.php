@@ -20,7 +20,7 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="{{ asset('chart.js/chart.js') }}" ></script>
+    <script src="{{ asset('chart.js/chart.js') }}"></script>
 </head>
 
 <body class="font-sans antialiased">

@@ -11,15 +11,16 @@
         <label for="checkbox" class="btn-change flex items-center p-1 rounded-lg w-12 h-6 cursor-pointer"></label>
 
     </div>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-    <div id="content" style="display:block;">
-        @livewire('balance-ingreso')
+        <div id="content" style="display:block;">
+            @livewire('balance-ingreso')
+        </div>
+        <div id="content2" style="display:none;">
+            @livewire('balance-egreso')
+        </div>
+
     </div>
-    <div id="content2" style="display:none;">
-    @livewire('balance-egreso')
-    </div>
-
-
     @push('styles')
         <style>
             :root {
@@ -57,30 +58,30 @@
     @endpush
     @push('scripts')
         <script>
-           const btn = document.querySelector('.btn-change');
+            const btn = document.querySelector('.btn-change');
             btn.addEventListener('click', () => {
-            if (document.getElementById('checkbox').checked) {
-                btn.style.setProperty('--bg-btn', '#C6F6D5');
-                btn.style.setProperty('--btn-color', '#38A169');
-            } else {
-                btn.style.setProperty('--bg-btn', '#fed7d7');
-                btn.style.setProperty('--btn-color', '#e53e3e');
-            }
+                if (document.getElementById('checkbox').checked) {
+                    btn.style.setProperty('--bg-btn', '#C6F6D5');
+                    btn.style.setProperty('--btn-color', '#38A169');
+                } else {
+                    btn.style.setProperty('--bg-btn', '#fed7d7');
+                    btn.style.setProperty('--btn-color', '#e53e3e');
+                }
             });
 
 
-              function showContent() {
+            function showContent() {
                 const element = document.getElementById("content");
-                 const element2 = document.getElementById("content2");
-                 const check = document.getElementById("checkbox");
-                 if (check.checked) {
-                     element.style.display = 'none';
-                     element2.style.display = 'block';
-                 } else {
-                     element.style.display = 'block';
-                     element2.style.display = 'none';
-                 }
-             };
+                const element2 = document.getElementById("content2");
+                const check = document.getElementById("checkbox");
+                if (check.checked) {
+                    element.style.display = 'none';
+                    element2.style.display = 'block';
+                } else {
+                    element.style.display = 'block';
+                    element2.style.display = 'none';
+                }
+            };
         </script>
     @endpush
 </x-app-layout>

@@ -1,4 +1,19 @@
 <div>
+    <div wire:loading>
+        <div style="display: flex; justify-content:center; align-items:center; background-color:black;
+            position:fixed; top:0px; left:0px; z-index: 9999; width:100%; height:100%; opacity:.75;">
+            <div style="color: #9988cd" class="la-ball-spin-clockwise-fade-rotating la-3x">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
     <div class="flex items-center justify-center bg-gray-100">
         <div class="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
@@ -52,12 +67,15 @@
                                 </svg>
                             </div>
                             <div class="flex flex-col justify-center">
-                                <div class="text-lg">3456</div>
-                                <div class="text-sm text-gray-400">Customers</div>
+                                <div class="text-lg">{{ number_format($utilidad_total, 2) }}</div>
+                                <div class="text-sm text-gray-400">Utilidad Total</div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
 
                 <div class="w-full lg:w-1/5">
                     <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-green-400">

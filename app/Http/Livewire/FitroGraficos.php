@@ -11,6 +11,7 @@ class FitroGraficos extends Component
     public $usuarios;
     public $ingreso_total;
     public $egreso_total;
+    public $utilidad_total;
     public $lote_id;
     public function render()
     {
@@ -35,12 +36,15 @@ class FitroGraficos extends Component
         $datos = ListReportes::where('lote_id',$this->lote_id)->get();
         $kk = array();
         $kk_egreso = array();
+        $liquidez = array();
         foreach($datos as $key => $dato){
             $kk[$key] = $dato->ingreso_importe_total;
             $kk_egreso[$key] = $dato->egreso_importe_total;
+            $liquidez[$key] = $dato->liquidez;
         }
         $kk_total = array_sum($kk);
         $kk_total_egreso = array_sum($kk_egreso);
+        $this->utilidad_total = array_sum($liquidez);
        $this->ingreso_total = $kk_total;
        $this->egreso_total = $kk_total_egreso;
        $this->emitTo('graficos','DatosFiltro',$this->lote_id);

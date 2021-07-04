@@ -13,8 +13,7 @@
                         </x-component-input>
                     </div>
                     <div class="flex">
-                        <x-component-select name="role" label="Rol"
-                            :options="['jefe' =>'Jefe','trabajador'=> 'Trabajador(a)']">
+                        <x-component-select name="role" label="Rol" :options="$roles">
                         </x-component-select>
                     </div>
                     <div class="flex">
@@ -22,11 +21,11 @@
                         </x-component-input>
                     </div>
                     <div class="flex">
-                        <x-component-input placeholder=" Ingrese su Imagen Retr0"  name="profile_photo_path" label="Imagen"
-                             type="file" >
+                        <x-component-input placeholder=" Ingrese su Imagen Retr0" name="profile_photo_path"
+                            label="Imagen" type="file">
                         </x-component-input>
 
-                     </div>
+                    </div>
 
                     @if ($action == 'Registrar')
                         <div class="flex">
@@ -34,7 +33,7 @@
                                 type="password">
                             </x-component-input>
                             <x-component-input placeholder=" Confirme de clave" name="password_confirmation"
-                                 type="password" label="Confirmacion de clave">
+                                type="password" label="Confirmacion de clave">
                             </x-component-input>
                         </div>
                     @endif

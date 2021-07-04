@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 class GestionTable extends Component
 {
     use WithPagination;
@@ -14,6 +15,7 @@ class GestionTable extends Component
     public $order = null;
     public $icon = '-circle';
     public $showModal = 'hidden';
+    public $roles = [];
 
     protected $queryString = [
         'search'=> ['except'=> ''],
@@ -30,7 +32,9 @@ class GestionTable extends Component
     public function render()
     {
         $users = User::termino($this->search)
-        ->role($this->user_role);
+        ->when($this->user_role != '',function($query){
+            return $query->role($this->user_role);
+       });
 
         if($this->camp && $this->order){
             $users = $users->orderBy($this->camp,$this->order);
@@ -58,6 +62,10 @@ class GestionTable extends Component
     }
     public function mount(){
         $this->icon = $this->iconDirection($this->order);
+        $this->roles = Role::pluck('name','name')->toArray();
+    }
+    public function hydrate(){
+        $this->roles = Role::pluck('name','name')->toArray();
     }
 
     public function sortable($camp)

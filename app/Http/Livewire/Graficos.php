@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class Graficos extends Component
 {
+    public $foo;
     protected $listeners = [
         'DatosFiltro'
     ];
@@ -14,11 +15,15 @@ class Graficos extends Component
         return view('livewire.graficos');
     }
 
+
+
+
     public function DatosFiltro($id){
         $meses = ['Enero','Febrero', 'Marzo',
          'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Setiembre',
          'Octubre','Noviembre', 'Diciembre'];
         $datos = ListReportes::where('lote_id',$id)->get();
+
         $kk = array();
         $kk_egreso = array();
         $liquidez = array();
@@ -32,5 +37,6 @@ class Graficos extends Component
 
         $this->emit('datosAño',$meses,$kk,$kk_egreso);
         $this->emit('datosLiquidez',$meses,$liquidez);
+
     }
 }

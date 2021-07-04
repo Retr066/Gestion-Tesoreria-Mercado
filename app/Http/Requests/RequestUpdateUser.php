@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Spatie\Permission\Models\Role;
 class RequestUpdateUser extends FormRequest
 {
     /**
@@ -23,11 +23,13 @@ class RequestUpdateUser extends FormRequest
      */
     public function rules($user)
     {
+        $roles = Role::pluck('name');
+        $roles = $roles->join(',');
         $values = [
             'name'=> 'required|min:3|max:30|regex:/^[A-Z,a-z][A-Z,a-z, ]+$/',
             'lastname' => 'required|min:3|max:30|regex:/^[A-Z,a-z][A-Z,a-z, ]+$/',
             'email' => ['required','max:255','email',Rule::unique('users','email')->ignore($user)],
-            'role'=>'required|in:admin,jefe,trabajador',
+            'role'=>"required|in:{$roles}",
             'profile_photo_path' => 'nullable|image|max:2048|mimes:jpeg,png,svg,jpg,gif',
         ];
         if(!$user){

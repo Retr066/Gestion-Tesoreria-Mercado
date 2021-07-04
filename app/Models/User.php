@@ -11,13 +11,16 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\ListReportes;
 use App\Models\Lote;
-class User extends Authenticatable
+use Spatie\Permission\Traits\HasRoles;
+
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +32,6 @@ class User extends Authenticatable
         'lastname',
         'email',
         'password',
-        'role',
         'profile_photo_path',
     ];
 
@@ -44,6 +46,7 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
+    protected $redirectTo = '/dashboard';
 
     /**
      * The attributes that should be cast to native types.
@@ -95,12 +98,6 @@ class User extends Authenticatable
         ->orWhere('email','LIKE',"%{$termino}%");
 
     }
-        public function scopeRole($query ,$role){
-            if ($role == '') {
-            return;
-            }
 
-            return $query->whereRole($role);
-        }
 
 }
