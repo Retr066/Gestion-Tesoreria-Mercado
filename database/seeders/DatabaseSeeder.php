@@ -30,11 +30,11 @@ class DatabaseSeeder extends Seeder
         $user2 = User::create([
             'name' =>'test',
             'lastname' =>'test',
-            'email' => 'test@gmail.com',
+            'email' => 'admin666@yopmail.com ',
 
-            'password' => bcrypt('12345'),
+            'password' => bcrypt('12345678'),
         ]);
-         \App\Models\User::factory(10)->create();
+        /*  \App\Models\User::factory(10)->create(); */
 
 
         $role = Role::create(['name' => 'Jefe']);

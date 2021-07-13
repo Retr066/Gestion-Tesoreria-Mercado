@@ -11,7 +11,7 @@
 
             <div>
                 <x-jet-label for="name" value="{{ __('Nombres') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                <x-jet-input id="name" class="block mb-1 w-full" type="text" name="name" :value="old('name')" required
                     autofocus autocomplete="name" />
             </div>
             <div>
@@ -56,11 +56,11 @@
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('Ya estas Registrado?') }}
                 </a>
 
                 <x-jet-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('Registro') }}
                 </x-jet-button>
             </div>
         </form>
