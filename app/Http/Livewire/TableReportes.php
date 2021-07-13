@@ -111,7 +111,8 @@ class TableReportes extends Component
         return redirect()->route('ViewEgresos',$id);
      }
      public function clear(){
-        $this->reset();
+        $this->reset(['search','camp','order','perPage','reportes_estado']);
+
     }
 
     public function updatingSearch()

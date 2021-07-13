@@ -41,20 +41,24 @@
                 </div>
                 @role('Trabajador|Jefe')
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                    href="{{ route('dashboard') }}">Dashboard</a>
+                    href="{{ route('dashboard') }}">Dashboard <i
+                        class="fas fa-tachometer-alt text-purple-600  hover:text-purple-900"></i></a>
                 @endrole
 
                 @role('Trabajador|Jefe')
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                    href="{{ route('reportes') }}">Finanzas</a>
+                    href="{{ route('reportes') }}">Finanzas <i
+                        class="fas fa-wallet text-gray-600  hover:text-gray-900"></i></a>
                 @endrole
                 @role('Trabajador|Jefe')
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                    href="{{ route('archivados') }}">Finanzas Archivados</a>
+                    href="{{ route('archivados') }}">Historial Finanzas <i
+                        class="fas fa-money-bill-wave text-green-600  hover:text-green-900"></i></a>
                 @endrole
                 @role('Trabajador|Jefe')
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                    href="{{ route('balanceI') }}">Balances</a>
+                    href="{{ route('balanceI') }}">Balances <i
+                        class="fas fa-balance-scale-right text-yellow-600  hover:text-yellow-900"></i></a>
                 @endrole
 
                 {{-- <div @click.away="open = false" class="relative" x-data="{ open: false }">
@@ -86,15 +90,9 @@
                 </div> --}}
                 @role('Jefe')
                 <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                    href="{{ route('usuarios') }}">Gestionar Usuarios</a>
+                    href="{{ route('usuarios') }}">Gestionar Usuarios <i
+                        class="fas fa-users text-blue-600  hover:text-blue-900"></i></a>
                 @endrole
-
-
-
-
-
-
-
             </nav>
         </div>
 

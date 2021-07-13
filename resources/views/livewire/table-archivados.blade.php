@@ -83,22 +83,22 @@
                                     <div class="text-gray-600 font-medium text-sm pt-1 text-center lg:text-left px-2">
                                         @if ($lote->saldo_semestre !== null)
                                             @if ($lote->saldo_semestre > 0)
-                                                Saldo Julio {{ $lote->año }} :<span
+                                                Saldo Julio {{ $lote->año }}:<span
                                                     class=" text-sm text-green-600 hover:text-green-900 ">
                                                     S/.{{ number_format($lote->saldo_semestre, 2) }}</span>
                                             @else
-                                                Saldo Julio {{ $lote->año }} :<span
+                                                Saldo Julio {{ $lote->año }}:<span
                                                     class=" text-sm text-red-600 hover:text-red-900 ">
                                                     S/.{{ number_format($lote->saldo_semestre, 2) }}</span>
                                             @endif
                                         @endif
                                         @if ($lote->saldo_segundo_semestre !== null)
                                             @if ($lote->saldo_segundo_semestre > 0)
-                                                Saldo Diciembre {{ $lote->año }} :<span
+                                                Saldo Diciembre {{ $lote->año }}:<span
                                                     class=" text-sm text-green-600 hover:text-green-900 ">
                                                     S/.{{ number_format($lote->saldo_segundo_semestre, 2) }}</span>
                                             @else
-                                                Saldo Diciembre {{ $lote->año }} :<span
+                                                Saldo Diciembre {{ $lote->año }}:<span
                                                     class=" text-sm text-red-600 hover:text-red-900 ">
                                                     S/.{{ number_format($lote->saldo_segundo_semestre, 2) }}</span>
                                             @endif

@@ -134,7 +134,7 @@
                             </div>
                         @elseif (!$egresos->count() && $search == '')
                             <div class="bg-white px-4 py-3  border-t border-gray-200 text-gray-500 sm:px-6">
-                                No hay Registro de Ingresos aun
+                                No hay Registro de Egresos aun
                             </div>
                         @else
                             <div class="bg-white px-4 py-3  border-t border-gray-200 text-gray-500 sm:px-6">

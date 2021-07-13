@@ -9,7 +9,7 @@
                 </label>
                 <input wire:model="ingreso_codigo" onkeypress="nextFocus('input1', 'input2')"
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="input1" type="text" placeholder="Ingrese la fecha" autocomplete="off">
+                    id="input1" type="text" placeholder="Ingrese el codigo del recibo" autocomplete="off">
                 @error('ingreso_codigo') <span class="error text-red-700">{{ $message }}</span> @enderror
             </div>
             <div class="w-full md:w-1/2 px-3">
