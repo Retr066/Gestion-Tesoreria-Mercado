@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
             'lote_id' =>  $user->id,
             'mes' => 'Junio'
         ]);
-        $reporte7 = ListReportes::factory()->create([
+      /*   $reporte7 = ListReportes::factory()->create([
             'lote_id' =>  $user->id,
             'mes' => 'Julio'
         ]);
@@ -104,46 +104,46 @@ class DatabaseSeeder extends Seeder
         $reporte12 = ListReportes::factory()->create([
             'lote_id' =>  $user->id,
             'mes' => 'Diciembre'
-        ]);
+        ]); */
 
 
-        Ingresos::factory()->count(80)->create([
+        Ingresos::factory()->count(20)->create([
             'id_ingreso_reportes' =>  $reporte->id,
         ]);
-        Egresos::factory()->count(80)->create([
+        Egresos::factory()->count(20)->create([
             'id_egreso_reportes' =>  $reporte->id,
         ]);
-        Ingresos::factory()->count(80)->create([
+        Ingresos::factory()->count(20)->create([
             'id_ingreso_reportes' =>  $reporte2->id,
         ]);
-        Egresos::factory()->count(80)->create([
+        Egresos::factory()->count(20)->create([
             'id_egreso_reportes' =>  $reporte2->id,
         ]);
-        Ingresos::factory()->count(80)->create([
+        Ingresos::factory()->count(20)->create([
             'id_ingreso_reportes' =>  $reporte3->id,
         ]);
-        Egresos::factory()->count(80)->create([
+        Egresos::factory()->count(20)->create([
             'id_egreso_reportes' =>  $reporte3->id,
         ]);
-        Ingresos::factory()->count(80)->create([
+        Ingresos::factory()->count(20)->create([
             'id_ingreso_reportes' =>  $reporte4->id,
         ]);
-        Egresos::factory()->count(80)->create([
+        Egresos::factory()->count(20)->create([
             'id_egreso_reportes' =>  $reporte4->id,
         ]);
-        Ingresos::factory()->count(80)->create([
+        Ingresos::factory()->count(20)->create([
             'id_ingreso_reportes' =>  $reporte5->id,
         ]);
-        Egresos::factory()->count(80)->create([
+        Egresos::factory()->count(20)->create([
             'id_egreso_reportes' =>  $reporte5->id,
         ]);
-        Ingresos::factory()->count(80)->create([
+        Ingresos::factory()->count(20)->create([
             'id_ingreso_reportes' =>  $reporte6->id,
         ]);
-        Egresos::factory()->count(80)->create([
+        Egresos::factory()->count(20)->create([
             'id_egreso_reportes' =>  $reporte6->id,
         ]);
-        Ingresos::factory()->count(80)->create([
+      /*   Ingresos::factory()->count(80)->create([
             'id_ingreso_reportes' =>  $reporte7->id,
         ]);
         Egresos::factory()->count(80)->create([
@@ -178,7 +178,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Egresos::factory()->count(80)->create([
             'id_egreso_reportes' =>  $reporte12->id,
-        ]);
+        ]); */
 
 
 
