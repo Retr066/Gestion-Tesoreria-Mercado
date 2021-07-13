@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
             'lote_id' =>  $user->id,
             'mes' => 'Junio'
         ]);
-      /*   $reporte7 = ListReportes::factory()->create([
+        $reporte7 = ListReportes::factory()->create([
             'lote_id' =>  $user->id,
             'mes' => 'Julio'
         ]);
@@ -104,7 +104,7 @@ class DatabaseSeeder extends Seeder
         $reporte12 = ListReportes::factory()->create([
             'lote_id' =>  $user->id,
             'mes' => 'Diciembre'
-        ]); */
+        ]);
 
 
         Ingresos::factory()->count(20)->create([
