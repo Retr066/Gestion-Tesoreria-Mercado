@@ -20,7 +20,7 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="{{ asset('chart.js/chart.js') }}"></script>
+    <script src="{{ mix('chart.js/chart.js') }}"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -33,7 +33,7 @@
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>
@@ -46,7 +46,7 @@
                     <livewire:sidebar />
                 </div>
                 <div class="w-full min-w-full md:min-w-0">
-                    <a class="text-green-500 bg-gray-700 cursor-pointer rounded-lg p-1 m-2"
+                    <a class="p-1 m-2 text-green-500 bg-gray-700 rounded-lg cursor-pointer"
                         x-on:click="open = !open">&#9776;</a>
                     {{ $slot }}
                 </div>
