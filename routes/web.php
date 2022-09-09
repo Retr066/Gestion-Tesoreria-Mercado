@@ -31,19 +31,9 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('users.dashboard');
 })->name('dashboard');
-/* Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
 
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send'); */
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('finanzas/meses/ingresos/{id}',TableIngresos::class ,'render')->where(['id' => '[0-9]+' ])->name('ingresos')->middleware('role:Trabajador|Jefe');
 Route::middleware(['auth:sanctum', 'verified'])->get('finanzas/meses/ingresos/ver/{id}',TableIngresosView::class ,'render')->where(['id' => '[0-9]+' ])->name('ViewIngresos')->middleware('role:Trabajador|Jefe');
