@@ -7,7 +7,7 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "npm run production --openssl-legacy-provider"
+        "production": "mix --production"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.3.1",
